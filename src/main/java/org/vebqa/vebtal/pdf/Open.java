@@ -22,12 +22,9 @@ public class Open extends AbstractCommand {
 		try {
 			PdfResource.current = new PDF(new File(this.target));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Cannot open pdf for testing.", e);
 		}
-		logger.info("Title: " + PdfResource.current.title);
-		logger.info("Pages: " + PdfResource.current.numberOfPages);
-		logger.info(PdfResource.current.text);
+		logger.info("PDF successfully opend with {} Pages. ", PdfResource.current.numberOfPages);
 		
 		Response tResp = new Response();
 

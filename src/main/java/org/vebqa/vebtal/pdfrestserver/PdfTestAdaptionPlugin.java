@@ -1,14 +1,12 @@
 package org.vebqa.vebtal.pdfrestserver;
 
-import org.vebqa.vebtal.AbstractRoboManagerPlugin;
+import org.vebqa.vebtal.AbstractTestAdaptionPlugin;
 import org.vebqa.vebtal.model.Command;
 import org.vebqa.vebtal.model.CommandResult;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
@@ -19,7 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 @SuppressWarnings("restriction")
-public class PdfRoboPlugin extends AbstractRoboManagerPlugin {
+public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 
 	/** Start/Stop Button **/
 	private static final Button btnStartStop = new Button();
@@ -29,7 +27,7 @@ public class PdfRoboPlugin extends AbstractRoboManagerPlugin {
 
 	
 	public String getName() {
-		return "PDF Plugin for RoboManager";
+		return "PDF Plugin for VEB Test Adaption Layer";
 	}
 
 	@Override

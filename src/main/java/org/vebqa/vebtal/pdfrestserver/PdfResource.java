@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.text.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.pdf.PDF;
@@ -32,7 +32,7 @@ public class PdfResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response executePdf(Command cmd) {
-		PdfRoboPlugin.addCommandToList(cmd);
+		PdfTestAdaptionPlugin.addCommandToList(cmd);
 		
 		Response tResponse = new Response();
 		
@@ -42,7 +42,7 @@ public class PdfResource {
 		String tCmd = cmd.getCommand().toLowerCase().trim();
 		// erster Buchstabe gross
 		tCmd = WordUtils.capitalizeFully(tCmd);
-		String tClass = "org.vebqa.roborest.pdf." + tCmd;
+		String tClass = "org.vebqa.vebtal.pdf." + tCmd;
 		Response result = null;
 		try {
 			Class<?> cmdClass = Class.forName(tClass);
@@ -52,25 +52,19 @@ public class PdfResource {
 			result = (Response)m.invoke(cmdObj, this.current);
 			
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			logger.error("Keyword class not found.", e);
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Execute method in keyword class not found.", e);
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Cannot invoke keyword class.", e);
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Cannot instantiate keyword class.", e);
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Illegal access for keyword class.", e);
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Illegal argument while invoking keyword.", e);
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Cannot invoke keyword class.", e);
 		}
 		
 		if (result == null) {
@@ -79,9 +73,9 @@ public class PdfResource {
 			return tResponse;
 		}
 		if (result.getCode() != "0") {
-			PdfRoboPlugin.setLatestResult(false, result.getMessage());
+			PdfTestAdaptionPlugin.setLatestResult(false, result.getMessage());
 		} else {
-			PdfRoboPlugin.setLatestResult(true, "ok");
+			PdfTestAdaptionPlugin.setLatestResult(true, "ok");
 		}
 		return result;
 	}
