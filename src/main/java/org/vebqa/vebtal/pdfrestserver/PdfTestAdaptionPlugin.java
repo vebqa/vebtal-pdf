@@ -1,6 +1,7 @@
 package org.vebqa.vebtal.pdfrestserver;
 
 import org.vebqa.vebtal.AbstractTestAdaptionPlugin;
+import org.vebqa.vebtal.TestAdaptionType;
 import org.vebqa.vebtal.model.Command;
 import org.vebqa.vebtal.model.CommandResult;
 
@@ -19,13 +20,16 @@ import javafx.scene.layout.HBox;
 @SuppressWarnings("restriction")
 public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 
+	public PdfTestAdaptionPlugin() {
+		super(TestAdaptionType.ADAPTER);
+	}
+
 	/** Start/Stop Button **/
 	private static final Button btnStartStop = new Button();
-	
+
 	private static final TableView<CommandResult> commandList = new TableView<>();
 	private static final ObservableList<CommandResult> clData = FXCollections.observableArrayList();
 
-	
 	public String getName() {
 		return "PDF Plugin for VEB Test Adaption Layer";
 	}
@@ -34,14 +38,14 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 	public Class getImplementation() {
 		return PdfResource.class;
 	}
-	
+
 	@Override
 	public Tab startup() {
 		// Richtet den Plugin-spezifischen Tab ein
-		
+
 		Tab seleneseTab = new Tab();
 		seleneseTab.setText("PDF");
-		
+
 		// LogBox
 		BorderPane root = new BorderPane();
 
@@ -82,16 +86,16 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 		root.setTop(hbox);
 		root.setCenter(commandList);
 		seleneseTab.setContent(root);
-	
+
 		return seleneseTab;
 	}
-	
+
 	public static void addCommandToList(Command aCmd) {
 		String aValue = aCmd.getValue();
 		CommandResult tCR = new CommandResult(aCmd.getCommand(), aCmd.getTarget(), aValue);
 		Platform.runLater(() -> clData.add(tCR));
 	}
-	
+
 	public static void setLatestResult(Boolean success, final String aResult) {
 		Platform.runLater(() -> clData.get(clData.size() - 1).setLogInfo(aResult));
 		Platform.runLater(() -> clData.get(clData.size() - 1).setResult(success));
@@ -99,7 +103,7 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 		commandList.refresh();
 		Platform.runLater(() -> commandList.scrollTo(clData.size() - 1));
 	}
-	
+
 	@Override
 	public boolean shutdown() {
 
