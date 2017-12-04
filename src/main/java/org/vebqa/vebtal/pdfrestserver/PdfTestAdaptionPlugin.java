@@ -96,7 +96,7 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 		Platform.runLater(() -> clData.add(tCR));
 	}
 
-	public static void setLatestResult(Boolean success, final String aResult) {
+	public static void setLatestResult(boolean success, final String aResult) {
 		Platform.runLater(() -> clData.get(clData.size() - 1).setLogInfo(aResult));
 		Platform.runLater(() -> clData.get(clData.size() - 1).setResult(success));
 

@@ -21,8 +21,11 @@ public class Verifytext extends AbstractCommand {
 	}
 
 	/**
-	 * | command | target | value | | verifyText | | text | | verifyText | page=n |
-	 * text |
+	 * | command | target | value | 
+	 * 
+	 * | verifyText | | text | 
+	 * 
+	 * | verifyText | page=n | text |
 	 */
 	@Override
 	public Response executeImpl(PDF current) {

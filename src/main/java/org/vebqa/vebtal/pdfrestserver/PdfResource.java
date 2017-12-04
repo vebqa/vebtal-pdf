@@ -49,7 +49,7 @@ public class PdfResource {
 			Constructor<?> cons = cmdClass.getConstructor(String.class, String.class, String.class);
 			Object cmdObj = cons.newInstance(cmd.getCommand(), cmd.getTarget(), cmd.getValue());
 			Method m = cmdClass.getDeclaredMethod("executeImpl", PDF.class);
-			result = (Response)m.invoke(cmdObj, this.current);
+			result = (Response)m.invoke(cmdObj, current);
 			
 		} catch (ClassNotFoundException e) {
 			logger.error("Keyword class not found.", e);
