@@ -33,19 +33,19 @@ public class PDF {
 	// XMP Basic Schema
 	
 	// Document Information
-	public final String text;
-	public final int numberOfPages;
-	public final String author;
-	public final Calendar creationDate;
-	public final String creator;
-	public final String keywords;
-	public final String producer;
-	public final String subject;
-	public final String title;
-	public final boolean encrypted;
-	public final boolean signed;
-	public final String signerName;
-	public final Calendar signatureTime;
+	public String text;
+	public int numberOfPages;
+	public String author;
+	public Calendar creationDate;
+	public String creator;
+	public String keywords;
+	public String producer;
+	public String subject;
+	public String title;
+	public boolean encrypted;
+	public boolean signed;
+	public String signerName;
+	public Calendar signatureTime;
 
 	private PDF(String name, byte[] content) {
 		this.content = content;
@@ -56,8 +56,9 @@ public class PDF {
 		// - XMP Basic Schema
 		// - Document Information
 		
-		try (InputStream inputStream = new ByteArrayInputStream(content)) {
-			try (PDDocument pdf = PDDocument.load(inputStream)) {
+		try (
+				InputStream inputStream = new ByteArrayInputStream(content)) {
+			    PDDocument pdf = PDDocument.load(inputStream);
 				this.text = new PDFTextStripper().getText(pdf);
 				this.numberOfPages = pdf.getNumberOfPages();
 				this.author = pdf.getDocumentInformation().getAuthor();
@@ -73,9 +74,11 @@ public class PDF {
 				this.signed = signature != null;
 				this.signerName = signature == null ? null : signature.getName();
 				this.signatureTime = signature == null ? null : signature.getSignDate();
-			}
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException("Invalid PDF file: " + name, e);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 

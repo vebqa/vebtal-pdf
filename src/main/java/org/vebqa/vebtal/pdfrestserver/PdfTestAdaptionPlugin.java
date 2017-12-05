@@ -35,7 +35,7 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 	}
 
 	@Override
-	public Class getImplementation() {
+	public Class<?> getImplementation() {
 		return PdfResource.class;
 	}
 

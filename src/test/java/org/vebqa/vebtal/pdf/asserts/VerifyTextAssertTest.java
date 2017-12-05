@@ -1,9 +1,16 @@
 package org.vebqa.vebtal.pdf.asserts;
 
+import static org.hamcrest.Matchers.containsString;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class VerifyTextAssertTest {
 
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+	
 	@Test
 	public void findSomeTextSomewhere() {
 		VerifyTextAssert.assertThat("./src/test/java/resource/LoremIpsum500.pdf").hasText("Duis autem").check();
@@ -39,8 +46,11 @@ public class VerifyTextAssertTest {
 		VerifyTextAssert.assertThat("./src/test/java/resource/FileNotExisting.pdf").hasText("FindMe!").check();
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void failBecauseFileIsInvalid() {
+		thrown.expect(AssertionError.class);
+		thrown.expectMessage(containsString("Cannot read data from file"));
+		
 		VerifyTextAssert.assertThat("./src/test/java/resource/InvalidFile.pdf").hasText("FindMe!").check();
 	}
 	
