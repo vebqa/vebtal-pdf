@@ -11,6 +11,7 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Calendar;
+import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
@@ -20,6 +21,14 @@ import org.hamcrest.Matcher;
 public class PDF {
 	public final byte[] content;
 
+	// DublinCore
+	private String dcTitle;
+	private String dcDescription;
+	private List<String> dcCreators;
+	private List<Calendar> dcDates;
+	private List<String> dcSubjects;
+	
+	// Document Information
 	public final String text;
 	public final int numberOfPages;
 	public final String author;
@@ -37,6 +46,12 @@ public class PDF {
 	private PDF(String name, byte[] content) {
 		this.content = content;
 
+		// separate metadata if availabe in
+		// - Dublin Core
+		// - Adobe PDF Schema
+		// - XMP Basic Schema
+		// - Document Information
+		
 		try (InputStream inputStream = new ByteArrayInputStream(content)) {
 			try (PDDocument pdf = PDDocument.load(inputStream)) {
 				this.text = new PDFTextStripper().getText(pdf);
@@ -98,6 +113,19 @@ public class PDF {
 		return result.toByteArray();
 	}
 
+	private void extractDublinCore() {
+		this.dcTitle = "";
+		
+	}
+	
+	private void extractAdobePDF() {
+		
+	}
+	
+	private void extractXMPBasic() {
+		
+	}
+	
 	public static Matcher<PDF> containsText(String text) {
 		return new ContainsText(text);
 	}
