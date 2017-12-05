@@ -28,6 +28,10 @@ public class PDF {
 	private List<Calendar> dcDates;
 	private List<String> dcSubjects;
 	
+	// Adobe PDF Schema
+	
+	// XMP Basic Schema
+	
 	// Document Information
 	public final String text;
 	public final int numberOfPages;
