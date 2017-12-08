@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
@@ -68,7 +69,11 @@ public class Verifytextbyarea extends AbstractCommand {
 				tResp.setMessage("Could not find text in area. Area is empty!");
 			} else {
 				logger.info("Text found in area: {} ", areaText);
-				if (areaText.contains(this.value)) {
+				logger.info("Search for: {}", this.value);
+				// We need to convert line breaks
+				areaText = areaText.replace("\r\n", "\\r\\n");
+				logger.info("CV Line Breaks: {}", areaText);
+				if (StringUtils.contains(areaText, this.value)) {
 					tResp.setCode("0");
 					tResp.setMessage("Text found in area text.");
 				} else {
