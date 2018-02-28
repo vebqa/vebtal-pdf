@@ -13,13 +13,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.pdf.Area;
 import org.vebqa.vebtal.pdf.PDF;
+import org.vebqa.vebtal.pdf.PDFResource;
 
 /**
  * Special assertion class - inherits from AbstractAssert!
  * @author doerges
  *
  */
-public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAssert, String> {
+public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAssert, PDFResource> {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifyTextByAreaAssert.class);
 	
@@ -36,17 +37,8 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
 	 * Constructor assertion class, PDF filename ist the object we want to make assertions on.
 	 * @param aFileName
 	 */
-	public VerifyTextByAreaAssert(String aPdfToTest) {
+	public VerifyTextByAreaAssert(PDFResource aPdfToTest) {
 		super(aPdfToTest, VerifyTextByAreaAssert.class);
-		
-		// Load and analyze pdf
-		try {
-			this.current = new PDF(new File(actual));
-		} catch (IOException e) {
-			logger.error("Cannot open pdf for testing.", e);
-			failWithMessage("Cannot open pdf file <%s> for testing", actual);
-		}
-		logger.info("PDF successfully opend with {} Pages. ", this.current.numberOfPages);		
 	}	
 	
     /**
@@ -54,7 +46,7 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
      * @param anActualImageFile
      * @return
      */
-    public static VerifyTextByAreaAssert assertThat(String aPdfToTest) {
+    public static VerifyTextByAreaAssert assertThat(PDFResource aPdfToTest) {
         return new VerifyTextByAreaAssert(aPdfToTest);
     }
 
@@ -111,9 +103,7 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
 			textStripper.setSortByPosition(true);
 			textStripper.addRegion("test", area.getRectangle());
 
-			InputStream inputStream = new ByteArrayInputStream(this.current.content);
-			PDDocument pdf = PDDocument.load(inputStream);
-			PDPage page = pdf.getPage(area.getPage());
+			PDPage page = this.actual.getDocument().getPage(area.getPage());
 			textStripper.extractRegions(page);
 			areaText = textStripper.getTextForRegion("test");
 			logger.info("extracted text from area: {}", areaText);

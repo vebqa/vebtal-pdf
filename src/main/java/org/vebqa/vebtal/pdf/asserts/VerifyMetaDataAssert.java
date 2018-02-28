@@ -7,33 +7,23 @@ import org.assertj.core.api.AbstractAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.pdf.PDF;
+import org.vebqa.vebtal.pdf.PDFResource;
 
 /**
  * Special assertion class - inherits from AbstractAssert!
  * @author doerges
  *
  */
-public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, String> {
+public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, PDFResource> {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifyMetaDataAssert.class);
 	
-	private PDF current;
-
 	/**
 	 * Constructor assertion class, PDF filename ist the object we want to make assertions on.
 	 * @param aFileName
 	 */
-	public VerifyMetaDataAssert(String aPdfToTest) {
+	public VerifyMetaDataAssert(PDFResource aPdfToTest) {
 		super(aPdfToTest, VerifyMetaDataAssert.class);
-		
-		// Load and analze pdf
-		try {
-			this.current = new PDF(new File(actual));
-		} catch (IOException e) {
-			logger.error("Cannot open pdf for testing.", e);
-			failWithMessage("Cannot open pdf file <%s> for testing", actual);
-		}
-		logger.info("PDF successfully opend with {} Pages. ", this.current.numberOfPages);		
 	}	
 	
     /**
@@ -41,7 +31,7 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, S
      * @param anActualImageFile
      * @return
      */
-    public static VerifyMetaDataAssert assertThat(String aPdfToTest) {
+    public static VerifyMetaDataAssert assertThat(PDFResource aPdfToTest) {
         return new VerifyMetaDataAssert(aPdfToTest);
     }
     
@@ -54,12 +44,47 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, S
     	// check that we really have a pdf filename defined.
     	isNotNull();
 
-		if (current.numberOfPages != pages) {
-			failWithMessage("Expected text is <%s> but was <%s>", this.current.numberOfPages, pages);
+		if (this.actual.getDocument().getNumberOfPages() != pages) {
+			failWithMessage("Expected text is <%s> but was <%s>", pages, this.actual.getDocument().getNumberOfPages());
 		}
 		
 		return this;
     }
     
+    public VerifyMetaDataAssert hasAuthor(String anAuthor) {
+    	// check that we really have a pdf filename defined.
+    	isNotNull();
+
+		if (!this.actual.getDocument().getDocumentInformation().getAuthor().contentEquals(anAuthor)) {
+			failWithMessage("Expected author is <%s> but was <%s>", anAuthor, this.actual.getDocument().getDocumentInformation().getAuthor());
+		}
+		
+		return this;
+    }
+    
+    public VerifyMetaDataAssert hasCreator(String aCreator) {
+    	// check that we really have a pdf filename defined.
+    	isNotNull();
+
+		if (!this.actual.getDocument().getDocumentInformation().getCreator().contentEquals(aCreator)) {
+			failWithMessage("Expected creator is <%s> but was <%s>", aCreator, this.actual.getDocument().getDocumentInformation().getCreator());
+		}
+		
+		return this;
+    }   
+   
+    public VerifyMetaDataAssert hasTitle(String aTitle) {
+    	// check that we really have a pdf filename defined.
+    	isNotNull();
+
+		if (this.actual.getDocument().getDocumentInformation().getTitle() == null) {
+			failWithMessage("Expected title is <%s> but there is no title object.", aTitle);
+		}
+		if (!this.actual.getDocument().getDocumentInformation().getTitle().contentEquals(aTitle)) {
+			failWithMessage("Expected title is <%s> but was <%s>", aTitle, this.actual.getDocument().getDocumentInformation().getTitle());
+		}
+		
+		return this;
+    }   
     
 }
