@@ -1,11 +1,7 @@
 package org.vebqa.vebtal.pdf.asserts;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.assertj.core.api.AbstractAssert;
@@ -72,6 +68,21 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
     	this.areaWidth = width;
     	this.areaHeight = height;
     	
+    	
+		return this;
+    }
+    
+    /**
+     * A configuration
+     * @param someText
+     * @return
+     */
+    public VerifyTextByAreaAssert inArea(Area anArea) {
+    	this.areaX = (int)anArea.getRectangle().getX();
+    	this.areaY = (int)anArea.getRectangle().getY();
+    	this.areaWidth = (int)anArea.getRectangle().getWidth();
+    	this.areaHeight = (int)anArea.getRectangle().getHeight();
+    	
 		return this;
     }
     
@@ -94,7 +105,7 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
     public VerifyTextByAreaAssert check() {
     	// check that we really have a pdf filename defined.
     	isNotNull();
-
+    	
     	this.area = new Area(this.pageNumber, this.areaX, this.areaY, this.areaHeight, this.areaWidth);
     	
     	String areaText = null;
