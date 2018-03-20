@@ -43,8 +43,8 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 	public Tab startup() {
 		// Richtet den Plugin-spezifischen Tab ein
 
-		Tab seleneseTab = new Tab();
-		seleneseTab.setText("PDF");
+		Tab pdfTab = new Tab();
+		pdfTab.setText("PDF");
 
 		// LogBox
 		BorderPane root = new BorderPane();
@@ -85,9 +85,9 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 		// einfuegen
 		root.setTop(hbox);
 		root.setCenter(commandList);
-		seleneseTab.setContent(root);
+		pdfTab.setContent(root);
 
-		return seleneseTab;
+		return pdfTab;
 	}
 
 	public static void addCommandToList(Command aCmd) {

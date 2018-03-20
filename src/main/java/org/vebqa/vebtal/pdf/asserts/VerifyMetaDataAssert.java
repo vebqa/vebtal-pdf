@@ -1,12 +1,8 @@
 package org.vebqa.vebtal.pdf.asserts;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.assertj.core.api.AbstractAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vebqa.vebtal.pdf.PDF;
 import org.vebqa.vebtal.pdf.PDFResource;
 
 /**

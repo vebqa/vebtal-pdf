@@ -1,7 +1,5 @@
 package org.vebqa.vebtal.pdf.asserts;
 
-import static org.hamcrest.Matchers.containsString;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
