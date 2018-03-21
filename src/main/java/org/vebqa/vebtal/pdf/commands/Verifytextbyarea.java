@@ -1,4 +1,4 @@
-package org.vebqa.vebtal.pdf;
+package org.vebqa.vebtal.pdf.commands;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -11,7 +11,8 @@ import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdfrestserver.PdfResource;
+import org.vebqa.vebtal.pdf.Area;
+import org.vebqa.vebtal.pdf.CurrentDocument;
 
 public class Verifytextbyarea extends AbstractCommand {
 
@@ -27,7 +28,7 @@ public class Verifytextbyarea extends AbstractCommand {
 	 * | verifyTextByArea | x:1;y:1;height:1;width:1 | text |
 	 */
 	@Override
-	public Response executeImpl(PDF current) {
+	public Response executeImpl() {
 
 		Response tResp = new Response();
 
@@ -52,7 +53,7 @@ public class Verifytextbyarea extends AbstractCommand {
 				textStripper.setSortByPosition(true);
 				textStripper.addRegion("test", area.getRectangle());
 
-				InputStream inputStream = new ByteArrayInputStream(PdfResource.current.content);
+				InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().content);
 				PDDocument pdf = PDDocument.load(inputStream);
 				PDPage page = pdf.getPage(area.getPage());
 				textStripper.extractRegions(page);

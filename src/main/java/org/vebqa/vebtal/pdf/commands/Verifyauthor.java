@@ -1,7 +1,7 @@
-package org.vebqa.vebtal.pdf;
+package org.vebqa.vebtal.pdf.commands;
 
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdfrestserver.PdfResource;
+import org.vebqa.vebtal.pdf.CurrentDocument;
 
 public class Verifyauthor extends AbstractCommand {
 
@@ -10,16 +10,16 @@ public class Verifyauthor extends AbstractCommand {
 	}
 
 	@Override
-	public Response executeImpl(PDF current) {
+	public Response executeImpl() {
 
 		Response tResp = new Response();
 
-		if (PdfResource.current.author.contains(target)) {
+		if (CurrentDocument.getInstance().getDoc().author.contains(target)) {
 			tResp.setCode("0");
 			tResp.setMessage("Successfully found author: " + target);
 		} else {
 			tResp.setCode("1");
-			tResp.setMessage("Expected author: " + target + " but found: " + PdfResource.current.author);
+			tResp.setMessage("Expected author: " + target + " but found: " + CurrentDocument.getInstance().getDoc().author);
 		}
 		return tResp;
 	}

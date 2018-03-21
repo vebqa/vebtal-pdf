@@ -20,18 +20,25 @@ public class VerifyTextByAreaPlainModeTest {
 	public void checkThatTextIsAvailabeInSpecificArea() {
 		PDFResource dut = new PDFResource().loadDocument("./src/test/java/resource/Testtext_Area.pdf");
 		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(350, 220, 65, 15).check();
+
+		dut.closeDocument();
 	}
 
 	@Test(expected = AssertionError.class)
 	public void failBecausTextIsNotAvailabeInSpecificArea() {
 		PDFResource dut = new PDFResource().loadDocument("./src/test/java/resource/Testtext_Area.pdf");
 		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(1, 1, 65, 15).check();
+
+		// not reachable
+		dut.closeDocument();
 	}
 
 	@Test
 	public void checkThatTextFragmentIsAvailabeInSpecificArea() {
 		PDFResource dut = new PDFResource().loadDocument("./src/test/java/resource/Testtext_Area.pdf");
 		VerifyTextByAreaAssert.assertThat(dut).hasText("text.").atPage(1).inArea(390, 220, 25, 15).check();
+		
+		dut.closeDocument();
 	}
 
 	@Test
@@ -41,6 +48,9 @@ public class VerifyTextByAreaPlainModeTest {
 		thrown.expectMessage(containsString("text."));
 
 		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(390, 220, 25, 15).check();
+		
+		// not reachable
+		dut.closeDocument();
 	}
 
 }

@@ -50,6 +50,10 @@ public class PDFResource extends ExternalResource {
 	 */
 	@Override
 	protected void after() {
+		this.closeDocument();
+	}
+	
+	public void closeDocument() {
 		if (this.pdd == null) {
 			return;
 		}
@@ -69,6 +73,7 @@ public class PDFResource extends ExternalResource {
 			InputStream inputStream = new ByteArrayInputStream(this.current.content);
 			this.pdd = PDDocument.load(inputStream);
 			inputStream.close();
+			this.isLoaded = true;
 			logger.info("PDF successfully opend with {} Pages. ", this.current.numberOfPages);
 		} catch (IOException e) {
 			logger.error("Cannot open pdf for testing, but i will inform later.", e);

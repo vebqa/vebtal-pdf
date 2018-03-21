@@ -1,7 +1,7 @@
-package org.vebqa.vebtal.pdf;
+package org.vebqa.vebtal.pdf.commands;
 
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdfrestserver.PdfResource;
+import org.vebqa.vebtal.pdf.CurrentDocument;
 
 public class Verifysubject extends AbstractCommand {
 
@@ -10,16 +10,16 @@ public class Verifysubject extends AbstractCommand {
 	}
 
 	@Override
-	public Response executeImpl(PDF current) {
+	public Response executeImpl() {
 
 		Response tResp = new Response();
 
-		if (PdfResource.current.subject.contains(target)) {
+		if (CurrentDocument.getInstance().getDoc().subject.contains(target)) {
 			tResp.setCode("0");
 			tResp.setMessage("Successfully found subject: " + target);
 		} else {
 			tResp.setCode("1");
-			tResp.setMessage("Expected subject: " + target + " but found: |" + PdfResource.current.subject + "|");
+			tResp.setMessage("Expected subject: " + target + " but found: |" + CurrentDocument.getInstance().getDoc().subject + "|");
 		}
 		return tResp;
 	}

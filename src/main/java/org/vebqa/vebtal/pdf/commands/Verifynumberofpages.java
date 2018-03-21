@@ -1,7 +1,7 @@
-package org.vebqa.vebtal.pdf;
+package org.vebqa.vebtal.pdf.commands;
 
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdfrestserver.PdfResource;
+import org.vebqa.vebtal.pdf.CurrentDocument;
 
 public class Verifynumberofpages extends AbstractCommand {
 
@@ -10,16 +10,16 @@ public class Verifynumberofpages extends AbstractCommand {
 	}
 
 	@Override
-	public Response executeImpl(PDF current) {
+	public Response executeImpl() {
 
 		Response tResp = new Response();
 
-		if (PdfResource.current.numberOfPages == Integer.parseInt(target)) {
+		if (CurrentDocument.getInstance().getDoc().numberOfPages == Integer.parseInt(target)) {
 			tResp.setCode("0");
 			tResp.setMessage("Document has expected amount of pages: " + target);
 		} else {
 			tResp.setCode("1");
-			tResp.setMessage("Expected amount of pages: " + target + " but found: " + PdfResource.current.numberOfPages);
+			tResp.setMessage("Expected amount of pages: " + target + " but found: " + CurrentDocument.getInstance().getDoc().numberOfPages);
 		}
 		return tResp;
 	}

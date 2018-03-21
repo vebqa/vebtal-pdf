@@ -35,11 +35,6 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 	}
 
 	@Override
-	public Class<?> getImplementation() {
-		return PdfResource.class;
-	}
-
-	@Override
 	public Tab startup() {
 		// Richtet den Plugin-spezifischen Tab ein
 

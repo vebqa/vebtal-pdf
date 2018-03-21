@@ -1,7 +1,8 @@
-package org.vebqa.vebtal.pdf;
+package org.vebqa.vebtal.pdf.commands;
 
 import org.vebqa.vebtal.command.ICommand;
 import org.vebqa.vebtal.model.Response;
+import org.vebqa.vebtal.pdf.PDF;
 
 public abstract class AbstractCommand implements ICommand {
 	
@@ -16,5 +17,5 @@ public abstract class AbstractCommand implements ICommand {
 	}
 
 	
-	protected abstract Response executeImpl(PDF current);
+	protected abstract Response executeImpl();
 }

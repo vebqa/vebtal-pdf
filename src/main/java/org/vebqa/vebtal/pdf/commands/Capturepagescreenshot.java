@@ -1,4 +1,4 @@
-package org.vebqa.vebtal.pdf;
+package org.vebqa.vebtal.pdf.commands;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -12,7 +12,7 @@ import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdfrestserver.PdfResource;
+import org.vebqa.vebtal.pdf.CurrentDocument;
 
 
 public class Capturepagescreenshot extends AbstractCommand {
@@ -24,7 +24,7 @@ public class Capturepagescreenshot extends AbstractCommand {
 	}
 
 	@Override
-	public Response executeImpl(PDF current) {
+	public Response executeImpl() {
 
 		String[] token = target.split("=");
 		int page = Integer.parseInt(token[1]);
@@ -34,7 +34,7 @@ public class Capturepagescreenshot extends AbstractCommand {
 		Response tResp = new Response();
 		
 		try {
-			InputStream inputStream = new ByteArrayInputStream(PdfResource.current.content);
+			InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().content);
 			PDDocument pdf = PDDocument.load(inputStream);
 			PDFRenderer pdfRenderer = new PDFRenderer(pdf);
 			BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 300, ImageType.RGB);

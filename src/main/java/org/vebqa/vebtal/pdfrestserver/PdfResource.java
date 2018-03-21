@@ -22,11 +22,6 @@ public class PdfResource {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PdfResource.class);
 
-	/**
-	 * PDF
-	 */
-	public static PDF current;
-	
 	@POST
 	@Path("execute")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -48,8 +43,8 @@ public class PdfResource {
 			Class<?> cmdClass = Class.forName(tClass);
 			Constructor<?> cons = cmdClass.getConstructor(String.class, String.class, String.class);
 			Object cmdObj = cons.newInstance(cmd.getCommand(), cmd.getTarget(), cmd.getValue());
-			Method m = cmdClass.getDeclaredMethod("executeImpl", PDF.class);
-			result = (Response)m.invoke(cmdObj, current);
+			Method m = cmdClass.getDeclaredMethod("executeImpl");
+			result = (Response)m.invoke(cmdObj);
 			
 		} catch (ClassNotFoundException e) {
 			logger.error("Keyword class not found.", e);

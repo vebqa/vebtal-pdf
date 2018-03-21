@@ -1,4 +1,4 @@
-package org.vebqa.vebtal.pdf;
+package org.vebqa.vebtal.pdf.commands;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -10,7 +10,8 @@ import org.hamcrest.Matcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdfrestserver.PdfResource;
+import org.vebqa.vebtal.pdf.CurrentDocument;
+import org.vebqa.vebtal.pdf.PDF;
 
 public class Verifytext extends AbstractCommand {
 
@@ -28,17 +29,17 @@ public class Verifytext extends AbstractCommand {
 	 * | verifyText | page=n | text |
 	 */
 	@Override
-	public Response executeImpl(PDF current) {
+	public Response executeImpl() {
 
 		Response tResp = new Response();
 
 		if (target == null || target.contentEquals("")) {
-			Matcher<PDF> matcher = PDF.containsText(value);
+			Matcher<PDF> matcher = CurrentDocument.getInstance().getDoc().containsText(value);
 
-			if (PdfResource.current == null) {
+			if (CurrentDocument.getInstance().getDoc() == null) {
 				tResp.setCode("1");
 				tResp.setMessage("No SUT loaded yet. Cannot test against null.");
-			} else if (matcher.matches(PdfResource.current)) {
+			} else if (matcher.matches(CurrentDocument.getInstance().getDoc())) {
 				tResp.setCode("0");
 				tResp.setMessage("Successfully found text: " + value);
 			} else {
@@ -55,7 +56,7 @@ public class Verifytext extends AbstractCommand {
 				stripper.setStartPage(Integer.parseInt(token[1]));
 				stripper.setEndPage(Integer.parseInt(token[1]));
 				
-				InputStream inputStream = new ByteArrayInputStream(PdfResource.current.content);
+				InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().content);
 				PDDocument pdf = PDDocument.load(inputStream);
 				pageText = stripper.getText(pdf);
 			} catch (IOException e) {

@@ -1,7 +1,7 @@
-package org.vebqa.vebtal.pdf;
+package org.vebqa.vebtal.pdf.commands;
 
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdfrestserver.PdfResource;
+import org.vebqa.vebtal.pdf.CurrentDocument;
 
 public class Close extends AbstractCommand {
 
@@ -10,9 +10,9 @@ public class Close extends AbstractCommand {
 	}
 
 	@Override
-	public Response executeImpl(PDF current) {
+	public Response executeImpl() {
 		
-		PdfResource.current = null;
+		CurrentDocument.getInstance().setDoc(null);
 		
 		Response tResp = new Response();
 

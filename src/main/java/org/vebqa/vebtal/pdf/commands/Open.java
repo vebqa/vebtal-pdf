@@ -1,4 +1,4 @@
-package org.vebqa.vebtal.pdf;
+package org.vebqa.vebtal.pdf.commands;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,8 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdfrestserver.PdfResource;
+import org.vebqa.vebtal.pdf.CurrentDocument;
+import org.vebqa.vebtal.pdf.PDF;
 
 public class Open extends AbstractCommand {
 
@@ -17,18 +18,18 @@ public class Open extends AbstractCommand {
 	}
 
 	@Override
-	public Response executeImpl(PDF current) {
+	public Response executeImpl() {
 		
 		try {
-			PdfResource.current = new PDF(new File(this.target));
+			CurrentDocument.getInstance().setDoc(new PDF(new File(this.target)));
 		} catch (IOException e) {
 			logger.error("Cannot open pdf for testing.", e);
 		}
-		logger.info("PDF successfully opend with {} Pages. ", PdfResource.current.numberOfPages);
+		logger.info("PDF successfully opend with {} Pages. ", CurrentDocument.getInstance().getDoc().numberOfPages);
 		
 		Response tResp = new Response();
 
-		if ( PdfResource.current.content == null ) {
+		if ( CurrentDocument.getInstance().getDoc().content == null ) {
 			tResp.setCode("1");
 			tResp.setMessage("Cannot open pdf: " + this.target);
 		} else {
