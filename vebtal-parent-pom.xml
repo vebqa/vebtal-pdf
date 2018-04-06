@@ -195,11 +195,4 @@
 			<url>dav:https://nexus.vonessenkg.de/repository/</url>
 		</site>
 	</distributionManagement>
-	
-	<repositories>
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://www.jitpack.io</url>
-		</repository>
-	</repositories>	
 </project>
