@@ -21,13 +21,8 @@
 
 	<organization>
 		<name>VON ESSEN Bank GmbH</name>
-		<url>https://portal.vonessenbank.de/bom</url>
+		<url>https://www.vonessenbank.de/bom</url>
 	</organization>
-
-	<issueManagement>
-		<system>Mantis</system>
-		<url>http://mantis.vonessenkg.de/mantis/</url>
-	</issueManagement>
 
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>

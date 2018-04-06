@@ -11,6 +11,9 @@
 	<artifactId>vebtal-pdf</artifactId>
 	<version>0.9</version>
 
+	<name>Test Adaption Layer for PDF documents</name>
+	<description>Provides access for testing PDF documents with api for REST or JUnit / AssertJ</description>
+	
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -19,6 +22,15 @@
 		</license>
 	</licenses>
 
+	<scm>
+		<url>https://github.com/vebqa/vebtal-pdf</url>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/vebqa/vebtal-pdf/issues</url>
+	</issueManagement>
+	
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
