@@ -1,6 +1,8 @@
 package org.vebqa.vebtal.pdfrestserver;
 
 import org.vebqa.vebtal.AbstractTestAdaptionPlugin;
+import org.vebqa.vebtal.TestAdaptionPlugin;
+import org.vebqa.vebtal.TestAdaptionResource;
 import org.vebqa.vebtal.TestAdaptionType;
 import org.vebqa.vebtal.model.Command;
 import org.vebqa.vebtal.model.CommandResult;
@@ -103,5 +105,10 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 	public boolean shutdown() {
 
 		return true;
+	}
+	
+	@Override
+	public Class<?> getImplementation() {
+		return PdfResource.class;
 	}
 }

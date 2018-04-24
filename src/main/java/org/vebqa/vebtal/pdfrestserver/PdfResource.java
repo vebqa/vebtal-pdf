@@ -10,15 +10,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.text.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vebqa.vebtal.pdf.PDF;
+import org.vebqa.vebtal.TestAdaptionResource;
 import org.vebqa.vebtal.model.Command;
 import org.vebqa.vebtal.model.Response;
 
 @Path("pdf")
-public class PdfResource {
+public class PdfResource implements TestAdaptionResource {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PdfResource.class);
 
@@ -26,7 +25,7 @@ public class PdfResource {
 	@Path("execute")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response executePdf(Command cmd) {
+	public Response execute(Command cmd) {
 		PdfTestAdaptionPlugin.addCommandToList(cmd);
 		
 		Response tResponse = new Response();
@@ -34,9 +33,12 @@ public class PdfResource {
 		// Test - to be refactored
 		// Command instanziieren
 		// erst alles klein schreiben
+		// erst alles klein schreiben
 		String tCmd = cmd.getCommand().toLowerCase().trim();
 		// erster Buchstabe gross
-		tCmd = WordUtils.capitalizeFully(tCmd);
+		String cmdFL = tCmd.substring(0, 1).toUpperCase(); 
+		String cmdRest = tCmd.substring(1);
+		tCmd = cmdFL + cmdRest;
 		String tClass = "org.vebqa.vebtal.pdf." + tCmd;
 		Response result = null;
 		try {

@@ -6,14 +6,16 @@
 		<groupId>org.vebqa.vebtal</groupId>
 		<artifactId>vebtal-parent</artifactId>
 		<version>1.0.0</version>
-		<relativePath>vebtal-parent-pom.xml</relativePath>
+		<!-- <relativePath>vebtal-parent-pom.xml</relativePath> -->
 	</parent>
 	<artifactId>vebtal-pdf</artifactId>
 	<version>0.9</version>
 
 	<name>Test Adaption Layer for PDF documents</name>
 	<description>Provides access for testing PDF documents with api for REST or JUnit / AssertJ</description>
-	
+
+	<packaging>jar</packaging>
+
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -30,24 +32,28 @@
 		<system>GitHub Issues</system>
 		<url>https://github.com/vebqa/vebtal-pdf/issues</url>
 	</issueManagement>
-	
-	<build>
-		<sourceDirectory>src/main/java</sourceDirectory>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<excludes>
-						<exclude>**/vebqa/vebtal/pdfrestserver/PdfResource.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+
+	<profiles>
+		<profile>
+			<id>standalone</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.7.0</version>
+						<configuration>
+							<source>1.8</source>
+							<target>1.8</target>
+							<excludes>
+								<exclude>**/vebqa/vebtal/pdfrestserver/PdfResource.java</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<dependencies>
 		<dependency>
@@ -79,6 +85,11 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>${version.jaxrs}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.assertj</groupId>
