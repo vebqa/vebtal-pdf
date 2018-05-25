@@ -1,8 +1,8 @@
 package org.vebqa.vebtal.pdfrestserver;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.AbstractTestAdaptionPlugin;
-import org.vebqa.vebtal.TestAdaptionPlugin;
-import org.vebqa.vebtal.TestAdaptionResource;
 import org.vebqa.vebtal.TestAdaptionType;
 import org.vebqa.vebtal.model.Command;
 import org.vebqa.vebtal.model.CommandResult;
@@ -10,7 +10,6 @@ import org.vebqa.vebtal.model.CommandResult;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -22,12 +21,13 @@ import javafx.scene.layout.HBox;
 @SuppressWarnings("restriction")
 public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 
+	private static final Logger logger = LoggerFactory.getLogger(PdfTestAdaptionPlugin.class);
+	
+	private static final String ID = "pdf";
+	
 	public PdfTestAdaptionPlugin() {
 		super(TestAdaptionType.ADAPTER);
 	}
-
-	/** Start/Stop Button **/
-	private static final Button btnStartStop = new Button();
 
 	private static final TableView<CommandResult> commandList = new TableView<>();
 	private static final ObservableList<CommandResult> clData = FXCollections.observableArrayList();
@@ -48,7 +48,6 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 
 		// Top bauen
 		HBox hbox = new HBox();
-		hbox.getChildren().addAll(btnStartStop);
 
 		// Table bauen
 		TableColumn selCommand = new TableColumn("Command");
@@ -109,6 +108,11 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 	
 	@Override
 	public Class<?> getImplementation() {
-		return PdfResource.class;
+		return null;
+	}
+	
+	@Override
+	public String getAdaptionID() {
+		return ID;
 	}
 }

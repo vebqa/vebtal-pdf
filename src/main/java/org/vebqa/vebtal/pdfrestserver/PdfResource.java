@@ -4,27 +4,16 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.TestAdaptionResource;
 import org.vebqa.vebtal.model.Command;
 import org.vebqa.vebtal.model.Response;
 
-@Path("pdf")
 public class PdfResource implements TestAdaptionResource {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PdfResource.class);
-
-	@POST
-	@Path("execute")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	
 	public Response execute(Command cmd) {
 		PdfTestAdaptionPlugin.addCommandToList(cmd);
 		
@@ -39,7 +28,7 @@ public class PdfResource implements TestAdaptionResource {
 		String cmdFL = tCmd.substring(0, 1).toUpperCase(); 
 		String cmdRest = tCmd.substring(1);
 		tCmd = cmdFL + cmdRest;
-		String tClass = "org.vebqa.vebtal.pdf." + tCmd;
+		String tClass = "org.vebqa.vebtal.pdf.commands." + tCmd;
 		Response result = null;
 		try {
 			Class<?> cmdClass = Class.forName(tClass);
