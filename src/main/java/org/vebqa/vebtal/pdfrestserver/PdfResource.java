@@ -14,7 +14,12 @@ public class PdfResource implements TestAdaptionResource {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PdfResource.class);
 	
-	public Response execute(Command cmd) {
+	public Response execute(String aCmd, String aTarget, String aValue) {
+		Command cmd = new Command();
+		cmd.setCommand(aCmd);
+		cmd.setTarget(aTarget);
+		cmd.setValue(aValue);
+		
 		PdfTestAdaptionPlugin.addCommandToList(cmd);
 		
 		Response tResponse = new Response();
@@ -64,5 +69,14 @@ public class PdfResource implements TestAdaptionResource {
 			PdfTestAdaptionPlugin.setLatestResult(true, "ok");
 		}
 		return result;
+	}
+
+	public PdfResource() {
+	}
+	
+	@Override
+	public Response execute(Command aCmd) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
