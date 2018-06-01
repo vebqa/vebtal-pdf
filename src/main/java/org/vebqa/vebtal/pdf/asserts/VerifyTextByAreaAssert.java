@@ -31,7 +31,7 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
 
 	/**
 	 * Constructor assertion class, PDF filename ist the object we want to make assertions on.
-	 * @param aFileName
+	 * @param	aPdfToTest	a document to test
 	 */
 	public VerifyTextByAreaAssert(PDFResource aPdfToTest) {
 		super(aPdfToTest, VerifyTextByAreaAssert.class);
@@ -39,8 +39,8 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
 	
     /**
      * A fluent entry point to our specific assertion class, use it with static import. 
-     * @param anActualImageFile
-     * @return
+     * @param	aPdfToTest	a document we want to test
+     * @return	new object
      */
     public static VerifyTextByAreaAssert assertThat(PDFResource aPdfToTest) {
         return new VerifyTextByAreaAssert(aPdfToTest);
@@ -48,8 +48,8 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
 
     /**
      * A configuration
-     * @param someText
-     * @return
+     * @param	someText	some text we are expecting
+     * @return	self
      */
     public VerifyTextByAreaAssert hasText(String someText) {
     	this.text = someText;
@@ -59,48 +59,46 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
     
     /**
      * A configuration
-     * @param someText
-     * @return
+     * @param	x 		coordinate x
+     * @param	y 		coordinate y
+     * @param	width	width of the area
+     * @param	height	height of the area
+     * @return	self
      */
     public VerifyTextByAreaAssert inArea(int x, int y, int width, int height) {
     	this.areaX = x;
     	this.areaY = y;
     	this.areaWidth = width;
     	this.areaHeight = height;
-    	
-    	
 		return this;
     }
     
     /**
      * A configuration
-     * @param someText
-     * @return
+     * @param	anArea	specify the area to test
+     * @return 	self
      */
     public VerifyTextByAreaAssert inArea(Area anArea) {
     	this.areaX = (int)anArea.getRectangle().getX();
     	this.areaY = (int)anArea.getRectangle().getY();
     	this.areaWidth = (int)anArea.getRectangle().getWidth();
     	this.areaHeight = (int)anArea.getRectangle().getHeight();
-    	
 		return this;
     }
     
     /**
      * A configuration
-     * @param someText
-     * @return
+     * @param	pageNumber	a page number we want to test
+     * @return self
      */
     public VerifyTextByAreaAssert atPage(int pageNumber) {
 		this.pageNumber = pageNumber;
-		
 		return this;
     }
     
     /**
      * A specific assertion
-     * @param someText
-     * @return
+     * @return	self
      */
     public VerifyTextByAreaAssert check() {
     	// check that we really have a pdf filename defined.

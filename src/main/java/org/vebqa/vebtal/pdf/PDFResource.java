@@ -82,7 +82,7 @@ public class PDFResource extends ExternalResource {
 	
 	/**
 	 * Returns the document, lazy loading if not already loaded by @before in JUnit
-	 * @return
+	 * @return PDDocument
 	 */
 	public PDDocument getDocument() {
 		if (!this.isLoaded) {

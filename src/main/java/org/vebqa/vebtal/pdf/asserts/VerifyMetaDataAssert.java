@@ -16,7 +16,7 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
 	
 	/**
 	 * Constructor assertion class, PDF filename ist the object we want to make assertions on.
-	 * @param aFileName
+	 * @param	aPdfToTest a documkent to test
 	 */
 	public VerifyMetaDataAssert(PDFResource aPdfToTest) {
 		super(aPdfToTest, VerifyMetaDataAssert.class);
@@ -24,8 +24,8 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
 	
     /**
      * A fluent entry point to our specific assertion class, use it with static import. 
-     * @param anActualImageFile
-     * @return
+     * @param	aPdfToTest	Our document to test
+     * @return	self
      */
     public static VerifyMetaDataAssert assertThat(PDFResource aPdfToTest) {
         return new VerifyMetaDataAssert(aPdfToTest);
@@ -33,8 +33,8 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
     
     /**
      * A specific assertion
-     * @param someText
-     * @return
+     * @param	pages	pages to expect
+     * @return	self
      */
     public VerifyMetaDataAssert hasNumberOfPages(int pages) {
     	// check that we really have a pdf filename defined.
@@ -47,6 +47,11 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
 		return this;
     }
     
+    /**
+     * 
+     * @param	anAuthor	the author we are expecting
+     * @return	self
+     */
     public VerifyMetaDataAssert hasAuthor(String anAuthor) {
     	// check that we really have a pdf filename defined.
     	isNotNull();
@@ -58,6 +63,11 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
 		return this;
     }
     
+    /**
+     * 
+     * @param 	aCreator	the creator we are expecting
+     * @return	self
+     */
     public VerifyMetaDataAssert hasCreator(String aCreator) {
     	// check that we really have a pdf filename defined.
     	isNotNull();
@@ -69,6 +79,11 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
 		return this;
     }   
    
+    /**
+     * 
+     * @param	aTitle	the title we are expecting
+     * @return	self
+     */
     public VerifyMetaDataAssert hasTitle(String aTitle) {
     	// check that we really have a pdf filename defined.
     	isNotNull();
@@ -82,5 +97,4 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
 		
 		return this;
     }   
-    
 }

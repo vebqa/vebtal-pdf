@@ -25,7 +25,7 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFResour
 	 * Constructor assertion class, PDF filename ist the object we want to make
 	 * assertions on.
 	 * 
-	 * @param aFileName
+	 * @param	aPdfToTest	a resource to test
 	 */
 	public VerifyTextAssert(PDFResource aPdfToTest) {
 		super(aPdfToTest, VerifyTextAssert.class);
@@ -35,8 +35,8 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFResour
 	 * A fluent entry point to our specific assertion class, use it with static
 	 * import.
 	 * 
-	 * @param anActualImageFile
-	 * @return
+	 * @param	aDoc	our document to test
+	 * @return	new object
 	 */
 	public static VerifyTextAssert assertThat(PDFResource aDoc) {
 		return new VerifyTextAssert(aDoc);
@@ -45,8 +45,8 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFResour
 	/**
 	 * Part of assertion - configure
 	 * 
-	 * @param someText
-	 * @return
+	 * @param	someText	some text we are expecting
+	 * @return	self
 	 */
 	public VerifyTextAssert hasText(String someText) {
 		this.textToFind = someText;
@@ -56,8 +56,8 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFResour
 	/**
 	 * Part of assertion - configure
 	 * 
-	 * @param someText
-	 * @return
+	 * @param	aPageNumber	the page number we want to test
+	 * @return	self
 	 */
 	public VerifyTextAssert atPage(int aPageNumber) {
 		this.page = aPageNumber;
@@ -67,8 +67,7 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFResour
 	/**
 	 * A specific assertion
 	 * 
-	 * @param someText
-	 * @return
+	 * @return	self
 	 */
 	public VerifyTextAssert check() {
 		// check that we really have a pdf document defined and loaded.
@@ -98,8 +97,6 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFResour
 		}
 
 		// Hint for designing and creating tests: we want to print the coordinates of the text finding.
-		
-		
 		return this;
 	}
 }
