@@ -11,27 +11,20 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Calendar;
-import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.hamcrest.Matcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PDF {
+
+	private static final Logger logger = LoggerFactory.getLogger(PDF.class);
+	
 	public final byte[] content;
 
-	// DublinCore
-	private String dcTitle;
-	private String dcDescription;
-	private List<String> dcCreators;
-	private List<Calendar> dcDates;
-	private List<String> dcSubjects;
-	
-	// Adobe PDF Schema
-	
-	// XMP Basic Schema
-	
 	// Document Information
 	public String text;
 	public int numberOfPages;
@@ -75,10 +68,10 @@ public class PDF {
 				this.signerName = signature == null ? null : signature.getName();
 				this.signatureTime = signature == null ? null : signature.getSignDate();
 		} catch (IllegalArgumentException e) {
+			logger.error("Invalid PDF file: {}", name);
 			throw new IllegalArgumentException("Invalid PDF file: " + name, e);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (IOException e) {
+			logger.error("There is an error while processing the document!", e);
 		}
 	}
 
@@ -120,19 +113,6 @@ public class PDF {
 		return result.toByteArray();
 	}
 
-	private void extractDublinCore() {
-		this.dcTitle = "";
-		
-	}
-	
-	private void extractAdobePDF() {
-		
-	}
-	
-	private void extractXMPBasic() {
-		
-	}
-	
 	public static Matcher<PDF> containsText(String text) {
 		return new ContainsText(text);
 	}
