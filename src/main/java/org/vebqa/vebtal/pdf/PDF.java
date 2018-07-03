@@ -113,7 +113,7 @@ public class PDF {
 		return result.toByteArray();
 	}
 
-	public static Matcher<PDF> containsText(String text) {
+	public Matcher<PDF> containsText(String text) {
 		return new ContainsText(text);
 	}
 }

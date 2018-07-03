@@ -20,6 +20,10 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 	
 	public Response execute(Command cmd) {
 	
+		// disable user actions
+		PdfTestAdaptionPlugin.setDisableUserActions(true);
+		
+		// add actual command to list
 		PdfTestAdaptionPlugin.addCommandToList(cmd);
 		
 		Response tResponse = new Response();
@@ -61,6 +65,10 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 		} else {
 			PdfTestAdaptionPlugin.setLatestResult(true, "ok");
 		}
+		
+		// enable user actions
+		PdfTestAdaptionPlugin.setDisableUserActions(false);
+		
 		return result;
 	}
 }
