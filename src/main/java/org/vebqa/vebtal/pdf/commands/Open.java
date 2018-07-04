@@ -6,9 +6,12 @@ import java.nio.file.NoSuchFileException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vebqa.vebtal.GuiManager;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.CurrentDocument;
 import org.vebqa.vebtal.pdf.PDF;
+import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
+import org.vebqa.vebtal.sut.SutStatus;
 
 public class Open extends AbstractCommand {
 
@@ -43,6 +46,7 @@ public class Open extends AbstractCommand {
 			tResp.setCode("0");
 			tResp.setMessage("SUT file successfully read.");
 			logger.info("PDF successfully opend with {} Pages. ", CurrentDocument.getInstance().getDoc().numberOfPages);
+			GuiManager.getinstance().setTabStatus(PdfTestAdaptionPlugin.ID, SutStatus.CONNECTED);
 		}
 		return tResp;
 	}
