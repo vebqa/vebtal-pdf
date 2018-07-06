@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.AbstractTestAdaptionResource;
 import org.vebqa.vebtal.TestAdaptionResource;
 import org.vebqa.vebtal.model.Command;
+import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 
 public class PdfResource extends AbstractTestAdaptionResource implements TestAdaptionResource {
@@ -23,9 +24,6 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 		// disable user actions
 		PdfTestAdaptionPlugin.setDisableUserActions(true);
 		
-		// add actual command to list
-		PdfTestAdaptionPlugin.addCommandToList(cmd);
-		
 		Response tResponse = new Response();
 		
 		Response result = null;
@@ -33,6 +31,13 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 			Class<?> cmdClass = Class.forName("org.vebqa.vebtal.pdf.commands." + getCommandClassName(cmd));
 			Constructor<?> cons = cmdClass.getConstructor(String.class, String.class, String.class);
 			Object cmdObj = cons.newInstance(cmd.getCommand(), cmd.getTarget(), cmd.getValue());
+			
+			// get type
+			Method mType = cmdClass.getMethod("getType");
+			CommandType cmdType = (CommandType)mType.invoke(cmdObj);
+			PdfTestAdaptionPlugin.addCommandToList(cmd, cmdType);
+			
+			// execute
 			Method m = cmdClass.getDeclaredMethod("executeImpl");
 			
 			setStart();

@@ -4,6 +4,7 @@ import org.vebqa.vebtal.AbstractTestAdaptionPlugin;
 import org.vebqa.vebtal.TestAdaptionType;
 import org.vebqa.vebtal.model.Command;
 import org.vebqa.vebtal.model.CommandResult;
+import org.vebqa.vebtal.model.CommandType;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -42,9 +43,9 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 		return createTab(ID, commandList, clData);
 	}
 
-	public static void addCommandToList(Command aCmd) {
+	public static void addCommandToList(Command aCmd, CommandType aType) {
 		String aValue = aCmd.getValue();
-		CommandResult tCR = new CommandResult(aCmd.getCommand(), aCmd.getTarget(), aValue);
+		CommandResult tCR = new CommandResult(aCmd.getCommand(), aCmd.getTarget(), aValue, aType);
 		Platform.runLater(() -> clData.add(tCR));
 	}
 
