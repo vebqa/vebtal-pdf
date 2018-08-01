@@ -1,6 +1,6 @@
 package org.vebqa.vebtal.pdfrestserver;
 
-import org.apache.commons.configuration2.FileBasedConfiguration;
+import org.apache.commons.configuration2.CombinedConfiguration;
 import org.vebqa.vebtal.AbstractTestAdaptionPlugin;
 import org.vebqa.vebtal.TestAdaptionType;
 import org.vebqa.vebtal.model.Command;
@@ -74,8 +74,7 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 	}
 
 	@Override
-	public FileBasedConfiguration loadConfigString() {
-		// TODO Auto-generated method stub
-		return null;
+	public CombinedConfiguration loadConfig() {
+		return loadConfig(ID);
 	}
 }
