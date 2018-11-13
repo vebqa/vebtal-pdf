@@ -1,5 +1,7 @@
 package org.vebqa.vebtal.pdf.commands;
 
+import org.vebqa.vebtal.command.AbstractCommand;
+import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.CurrentDocument;
 
@@ -7,10 +9,11 @@ public class Verifysubject extends AbstractCommand {
 
 	public Verifysubject(String aCommand, String aTarget, String aValue) {
 		super(aCommand, aTarget, aValue);
+		this.type = CommandType.ACCESSOR;
 	}
 
 	@Override
-	public Response executeImpl() {
+	public Response executeImpl(Object aDocument) {
 
 		Response tResp = new Response();
 

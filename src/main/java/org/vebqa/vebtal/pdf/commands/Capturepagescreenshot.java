@@ -11,6 +11,8 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vebqa.vebtal.command.AbstractCommand;
+import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.CurrentDocument;
 
@@ -21,10 +23,11 @@ public class Capturepagescreenshot extends AbstractCommand {
 	
 	public Capturepagescreenshot(String aCommand, String aTarget, String aValue) {
 		super(aCommand, aTarget, aValue);
+		this.type = CommandType.ACCESSOR;
 	}
 
 	@Override
-	public Response executeImpl() {
+	public Response executeImpl(Object aDocument) {
 
 		String[] token = target.split("=");
 		int page = Integer.parseInt(token[1]);

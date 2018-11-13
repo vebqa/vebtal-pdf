@@ -9,6 +9,8 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.hamcrest.Matcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vebqa.vebtal.command.AbstractCommand;
+import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.CurrentDocument;
 import org.vebqa.vebtal.pdf.PDF;
@@ -19,6 +21,7 @@ public class Verifytext extends AbstractCommand {
 
 	public Verifytext(String aCommand, String aTarget, String aValue) {
 		super(aCommand, aTarget, aValue);
+		this.type = CommandType.ASSERTION;
 	}
 
 	/**
@@ -29,7 +32,7 @@ public class Verifytext extends AbstractCommand {
 	 * | verifyText | page=n | text |
 	 */
 	@Override
-	public Response executeImpl() {
+	public Response executeImpl(Object aDocument) {
 
 		Response tResp = new Response();
 

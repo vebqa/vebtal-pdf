@@ -10,6 +10,8 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vebqa.vebtal.command.AbstractCommand;
+import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.Area;
 import org.vebqa.vebtal.pdf.CurrentDocument;
@@ -20,6 +22,7 @@ public class Verifytextbyarea extends AbstractCommand {
 
 	public Verifytextbyarea(String aCommand, String aTarget, String aValue) {
 		super(aCommand, aTarget, aValue);
+		this.type = CommandType.ASSERTION;
 	}
 
 	/**
@@ -28,7 +31,7 @@ public class Verifytextbyarea extends AbstractCommand {
 	 * | verifyTextByArea | x:1;y:1;height:1;width:1 | text |
 	 */
 	@Override
-	public Response executeImpl() {
+	public Response executeImpl(Object aDocument) {
 
 		Response tResp = new Response();
 

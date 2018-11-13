@@ -7,11 +7,13 @@ import java.nio.file.NoSuchFileException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.GuiManager;
+import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.CurrentDocument;
 import org.vebqa.vebtal.pdf.PDF;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 import org.vebqa.vebtal.sut.SutStatus;
+import org.vebqa.vebtal.command.AbstractCommand;
 
 public class Open extends AbstractCommand {
 
@@ -19,10 +21,11 @@ public class Open extends AbstractCommand {
 	
 	public Open(String aCommand, String aTarget, String aValue) {
 		super(aCommand, aTarget, aValue);
+		this.type = CommandType.ACTION;
 	}
 
 	@Override
-	public Response executeImpl() {
+	public Response executeImpl(Object aDocument) {
 
 		Response tResp = new Response();
 		boolean successfullyLoaded = false;

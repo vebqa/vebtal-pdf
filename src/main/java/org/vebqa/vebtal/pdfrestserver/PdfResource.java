@@ -38,14 +38,14 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 			PdfTestAdaptionPlugin.addCommandToList(cmd, cmdType);
 			
 			// execute
-			Method m = cmdClass.getDeclaredMethod("executeImpl");
+			Method m = cmdClass.getDeclaredMethod("executeImpl", Object.class);
 			
 			setStart();
-			result = (Response)m.invoke(cmdObj);
+			result = (Response)m.invoke(cmdObj, new Object());
 			setFinished();
 			
 		} catch (ClassNotFoundException e) {
-			logger.error("Keyword class not found.", e);
+			logger.error("Keyword class {} not found.", e, getCommandClassName(cmd));
 		} catch (NoSuchMethodException e) {
 			logger.error("Execute method in keyword class not found.", e);
 		} catch (SecurityException e) {
