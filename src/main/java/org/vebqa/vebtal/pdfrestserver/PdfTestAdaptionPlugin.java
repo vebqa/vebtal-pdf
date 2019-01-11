@@ -13,7 +13,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 
-@SuppressWarnings("restriction")
 public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 
 	/**

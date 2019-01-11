@@ -1,8 +1,6 @@
 package org.vebqa.vebtal.pdf.asserts;
 
 import org.assertj.core.api.AbstractAssert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.pdf.PDFResource;
 
 /**
@@ -11,8 +9,6 @@ import org.vebqa.vebtal.pdf.PDFResource;
  *
  */
 public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, PDFResource> {
-
-	private static final Logger logger = LoggerFactory.getLogger(VerifyMetaDataAssert.class);
 	
 	/**
 	 * Constructor assertion class, PDF filename ist the object we want to make assertions on.

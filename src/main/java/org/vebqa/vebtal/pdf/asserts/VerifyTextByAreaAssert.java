@@ -8,7 +8,6 @@ import org.assertj.core.api.AbstractAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.pdf.Area;
-import org.vebqa.vebtal.pdf.PDF;
 import org.vebqa.vebtal.pdf.PDFResource;
 
 /**
@@ -20,7 +19,6 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifyTextByAreaAssert.class);
 	
-	private PDF current;
 	private String text; 
 	private int pageNumber;
 	private Area area;
