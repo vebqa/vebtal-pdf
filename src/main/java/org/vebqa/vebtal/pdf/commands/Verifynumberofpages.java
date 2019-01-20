@@ -18,10 +18,10 @@ public class Verifynumberofpages extends AbstractCommand {
 		Response tResp = new Response();
 
 		if (CurrentDocument.getInstance().getDoc().numberOfPages == Integer.parseInt(target)) {
-			tResp.setCode("0");
+			tResp.setCode(Response.PASSED);
 			tResp.setMessage("Document has expected amount of pages: " + target);
 		} else {
-			tResp.setCode("1");
+			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Expected amount of pages: " + target + " but found: " + CurrentDocument.getInstance().getDoc().numberOfPages);
 		}
 		return tResp;

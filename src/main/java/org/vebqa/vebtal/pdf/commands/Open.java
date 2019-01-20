@@ -34,19 +34,19 @@ public class Open extends AbstractCommand {
 			successfullyLoaded = true;
 		} catch (NoSuchFileException e) {
 			logger.error("File not found: {}.", e.getMessage());
-			tResp.setCode("1");
+			tResp.setCode(Response.FAILED);
 			tResp.setMessage("File not found: " + e.getMessage());
 		} catch (IOException e) {
 			logger.error("Cannot open pdf for testing: {}", e.getMessage());
-			tResp.setCode("1");
+			tResp.setCode(Response.FAILED);
 			tResp.setMessage(e.getMessage());
 		}
 		
 		if ( successfullyLoaded && CurrentDocument.getInstance().getDoc().content == null ) {
-			tResp.setCode("1");
+			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Cannot process pdf: " + this.target);
 		} else if (successfullyLoaded) {
-			tResp.setCode("0");
+			tResp.setCode(Response.PASSED);
 			tResp.setMessage("SUT file successfully read.");
 			logger.info("PDF successfully opend with {} Pages. ", CurrentDocument.getInstance().getDoc().numberOfPages);
 			GuiManager.getinstance().setTabStatus(PdfTestAdaptionPlugin.ID, SutStatus.CONNECTED);

@@ -40,13 +40,13 @@ public class Verifytext extends AbstractCommand {
 			Matcher<PDF> matcher = CurrentDocument.getInstance().getDoc().containsText(value);
 
 			if (CurrentDocument.getInstance().getDoc() == null) {
-				tResp.setCode("1");
+				tResp.setCode(Response.FAILED);
 				tResp.setMessage("No SUT loaded yet. Cannot test against null.");
 			} else if (matcher.matches(CurrentDocument.getInstance().getDoc())) {
-				tResp.setCode("0");
+				tResp.setCode(Response.PASSED);
 				tResp.setMessage("Successfully found text: " + value);
 			} else {
-				tResp.setCode("1");
+				tResp.setCode(Response.FAILED);
 				tResp.setMessage("Cannot find text: " + value);
 			}
 		} else {
@@ -66,12 +66,11 @@ public class Verifytext extends AbstractCommand {
 				logger.error("Error while stripping text from pdf document!", e);
 			}
 			if (pageText != null && pageText.contains(value)) {
-				tResp.setCode("0");
+				tResp.setCode(Response.PASSED);
 				tResp.setMessage("Expected text: " + value + " found at page: " + token[1]);
 			} else {
-				tResp.setCode("1");
+				tResp.setCode(Response.FAILED);
 				tResp.setMessage("Did not found expected text: " + value + " at page: " + token[1]);
-
 			}
 		}
 		return tResp;

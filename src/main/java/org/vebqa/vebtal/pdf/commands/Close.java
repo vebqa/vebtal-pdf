@@ -22,7 +22,7 @@ public class Close extends AbstractCommand {
 		
 		Response tResp = new Response();
 
-		tResp.setCode("0");
+		tResp.setCode(Response.PASSED);
 		tResp.setMessage("Successfully removes SUT from memory.");
 		
 		GuiManager.getinstance().setTabStatus(PdfTestAdaptionPlugin.ID, SutStatus.DISCONNECTED);

@@ -18,10 +18,10 @@ public class Verifysubject extends AbstractCommand {
 		Response tResp = new Response();
 
 		if (CurrentDocument.getInstance().getDoc().subject.contains(target)) {
-			tResp.setCode("0");
+			tResp.setCode(Response.PASSED);
 			tResp.setMessage("Successfully found subject: " + target);
 		} else {
-			tResp.setCode("1");
+			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Expected subject: " + target + " but found: |" + CurrentDocument.getInstance().getDoc().subject + "|");
 		}
 		return tResp;

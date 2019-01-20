@@ -18,10 +18,10 @@ public class Verifyauthor extends AbstractCommand {
 		Response tResp = new Response();
 
 		if (CurrentDocument.getInstance().getDoc().author.contains(target)) {
-			tResp.setCode("0");
+			tResp.setCode(Response.PASSED);
 			tResp.setMessage("Successfully found author: " + target);
 		} else {
-			tResp.setCode("1");
+			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Expected author: " + target + " but found: " + CurrentDocument.getInstance().getDoc().author);
 		}
 		return tResp;

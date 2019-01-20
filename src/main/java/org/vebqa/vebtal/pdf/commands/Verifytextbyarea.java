@@ -36,7 +36,7 @@ public class Verifytextbyarea extends AbstractCommand {
 		Response tResp = new Response();
 
 		if (target == null || target.contentEquals("")) {
-			tResp.setCode("1");
+			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Command needs target and value data to work!");
 		} else {
 			// target to area
@@ -63,13 +63,13 @@ public class Verifytextbyarea extends AbstractCommand {
 				areaText = textStripper.getTextForRegion("test");
 				logger.info("extracted text from area: {}", areaText);
 			} catch (IOException e) {
-				tResp.setCode("1");
+				tResp.setCode(Response.FAILED);
 				tResp.setMessage("Cannot handle pdf source: " + e.getMessage());
 				return tResp;
 			}
 			
 			if (areaText == null) {
-				tResp.setCode("1");
+				tResp.setCode(Response.FAILED);
 				tResp.setMessage("Could not find text in area. Area is empty!");
 			} else {
 				logger.info("Text found in area: {} ", areaText);
@@ -78,10 +78,10 @@ public class Verifytextbyarea extends AbstractCommand {
 				areaText = areaText.replace("\r\n", "\\r\\n");
 				logger.info("CV Line Breaks: {}", areaText);
 				if (StringUtils.contains(areaText, this.value)) {
-					tResp.setCode("0");
+					tResp.setCode(Response.PASSED);
 					tResp.setMessage("Text found in area text.");
 				} else {
-					tResp.setCode("1");
+					tResp.setCode(Response.FAILED);
 					tResp.setMessage("Could not find text in area! Result is: " + areaText);
 				}
 			}
