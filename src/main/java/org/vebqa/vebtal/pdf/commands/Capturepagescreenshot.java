@@ -36,7 +36,7 @@ public class Capturepagescreenshot extends AbstractCommand {
 
 		Response tResp = new Response();
 
-		InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().content);
+		InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().getContentStream());
 		try {
 			PDDocument pdf = PDDocument.load(inputStream);
 			PDFRenderer pdfRenderer = new PDFRenderer(pdf);

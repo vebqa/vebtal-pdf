@@ -23,7 +23,7 @@ public class PDF {
 
 	private static final Logger logger = LoggerFactory.getLogger(PDF.class);
 	
-	public final byte[] content;
+	private final byte[] content;
 
 	// Document Information
 	public String text;
@@ -115,5 +115,9 @@ public class PDF {
 
 	public Matcher<PDF> containsText(String text) {
 		return new ContainsText(text);
+	}
+	
+	public byte[] getContentStream() {
+		return this.content;
 	}
 }

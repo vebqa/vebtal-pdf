@@ -42,7 +42,7 @@ public class Open extends AbstractCommand {
 			tResp.setMessage(e.getMessage());
 		}
 		
-		if ( successfullyLoaded && CurrentDocument.getInstance().getDoc().content == null ) {
+		if ( successfullyLoaded && CurrentDocument.getInstance().getDoc().getContentStream() == null ) {
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Cannot process pdf: " + this.target);
 		} else if (successfullyLoaded) {

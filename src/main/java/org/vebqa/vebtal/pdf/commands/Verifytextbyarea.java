@@ -56,7 +56,7 @@ public class Verifytextbyarea extends AbstractCommand {
 				textStripper.setSortByPosition(true);
 				textStripper.addRegion("test", area.getRectangle());
 
-				InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().content);
+				InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().getContentStream());
 				PDDocument pdf = PDDocument.load(inputStream);
 				PDPage page = pdf.getPage(area.getPage());
 				textStripper.extractRegions(page);

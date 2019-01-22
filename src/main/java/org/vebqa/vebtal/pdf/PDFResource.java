@@ -70,7 +70,7 @@ public class PDFResource extends ExternalResource {
 	private void load() {
 		try {
 			this.current = new PDF(new File(this.pathToResource));
-			InputStream inputStream = new ByteArrayInputStream(this.current.content);
+			InputStream inputStream = new ByteArrayInputStream(this.current.getContentStream());
 			this.pdd = PDDocument.load(inputStream);
 			inputStream.close();
 			this.isLoaded = true;

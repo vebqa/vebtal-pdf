@@ -59,7 +59,7 @@ public class Verifytext extends AbstractCommand {
 				stripper.setStartPage(Integer.parseInt(token[1]));
 				stripper.setEndPage(Integer.parseInt(token[1]));
 				
-				InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().content);
+				InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().getContentStream());
 				PDDocument pdf = PDDocument.load(inputStream);
 				pageText = stripper.getText(pdf);
 			} catch (IOException e) {
