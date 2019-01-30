@@ -17,6 +17,12 @@ public class Verifyauthor extends AbstractCommand {
 
 		Response tResp = new Response();
 
+		if (CurrentDocument.getInstance().getDoc().author == null) {
+			tResp.setCode(Response.FAILED);
+			tResp.setMessage("Document does not have a author value. Attribute is null!");
+			return tResp;
+		}		
+		
 		if (CurrentDocument.getInstance().getDoc().author.contains(target)) {
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage("Successfully found author: " + target);

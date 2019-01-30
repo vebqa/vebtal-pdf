@@ -9,7 +9,7 @@ public class Verifysubject extends AbstractCommand {
 
 	public Verifysubject(String aCommand, String aTarget, String aValue) {
 		super(aCommand, aTarget, aValue);
-		this.type = CommandType.ACCESSOR;
+		this.type = CommandType.ASSERTION;
 	}
 
 	@Override
@@ -17,6 +17,12 @@ public class Verifysubject extends AbstractCommand {
 
 		Response tResp = new Response();
 
+		if (CurrentDocument.getInstance().getDoc().subject == null) {
+			tResp.setCode(Response.FAILED);
+			tResp.setMessage("Document does not have a title. Attribute is null!");
+			return tResp;
+		}
+		
 		if (CurrentDocument.getInstance().getDoc().subject.contains(target)) {
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage("Successfully found subject: " + target);
