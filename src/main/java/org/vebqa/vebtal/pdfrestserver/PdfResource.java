@@ -61,11 +61,11 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 		}
 		
 		if (result == null) {
-			tResponse.setCode("1");
+			tResponse.setCode(Response.FAILED);
 			tResponse.setMessage("Cannot resolve command.");
 			return tResponse;
 		}
-		if (result.getCode() != "0") {
+		if (result.getCode() != Response.PASSED) {
 			PdfTestAdaptionPlugin.setLatestResult(false, result.getMessage());
 		} else {
 			PdfTestAdaptionPlugin.setLatestResult(true, "ok");
