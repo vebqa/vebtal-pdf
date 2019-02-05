@@ -7,6 +7,7 @@ import java.nio.file.NoSuchFileException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.GuiManager;
+import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.CurrentDocument;
@@ -15,6 +16,7 @@ import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 import org.vebqa.vebtal.sut.SutStatus;
 import org.vebqa.vebtal.command.AbstractCommand;
 
+@Keyword(module = PdfTestAdaptionPlugin.ID, command = "open", hintTarget = "path/to/doc.pdf")
 public class Open extends AbstractCommand {
 
 	private static final Logger logger = LoggerFactory.getLogger(Open.class);

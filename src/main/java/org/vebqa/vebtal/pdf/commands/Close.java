@@ -1,6 +1,7 @@
 package org.vebqa.vebtal.pdf.commands;
 
 import org.vebqa.vebtal.GuiManager;
+import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
@@ -8,6 +9,7 @@ import org.vebqa.vebtal.pdf.CurrentDocument;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 import org.vebqa.vebtal.sut.SutStatus;
 
+@Keyword(module = PdfTestAdaptionPlugin.ID, command = "close")
 public class Close extends AbstractCommand {
 
 	public Close(String aCommand, String aTarget, String aValue) {

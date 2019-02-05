@@ -9,12 +9,15 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.hamcrest.Matcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.CurrentDocument;
 import org.vebqa.vebtal.pdf.PDF;
+import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
+@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyText", hintTarget = "page=")
 public class Verifytext extends AbstractCommand {
 
 	private static final Logger logger = LoggerFactory.getLogger(Verifytext.class);

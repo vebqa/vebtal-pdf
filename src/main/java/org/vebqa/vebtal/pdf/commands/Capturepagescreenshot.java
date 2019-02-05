@@ -12,11 +12,14 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.CurrentDocument;
+import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
+@Keyword(module = PdfTestAdaptionPlugin.ID, command = "capturePageScreenshot", hintTarget = "page=")
 public class Capturepagescreenshot extends AbstractCommand {
 
 	private static final Logger logger = LoggerFactory.getLogger(Capturepagescreenshot.class);

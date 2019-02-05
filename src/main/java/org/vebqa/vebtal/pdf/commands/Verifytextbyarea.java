@@ -10,12 +10,15 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.Area;
 import org.vebqa.vebtal.pdf.CurrentDocument;
+import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
+@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyTextByArea", hintTarget = "page=;x=;y=;height=;width=", hintValue = "<string>")
 public class Verifytextbyarea extends AbstractCommand {
 
 	private static final Logger logger = LoggerFactory.getLogger(Verifytextbyarea.class);
@@ -56,7 +59,8 @@ public class Verifytextbyarea extends AbstractCommand {
 				textStripper.setSortByPosition(true);
 				textStripper.addRegion("test", area.getRectangle());
 
-				InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().getContentStream());
+				InputStream inputStream = new ByteArrayInputStream(
+						CurrentDocument.getInstance().getDoc().getContentStream());
 				PDDocument pdf = PDDocument.load(inputStream);
 				PDPage page = pdf.getPage(area.getPage());
 				textStripper.extractRegions(page);
@@ -67,7 +71,7 @@ public class Verifytextbyarea extends AbstractCommand {
 				tResp.setMessage("Cannot handle pdf source: " + e.getMessage());
 				return tResp;
 			}
-			
+
 			if (areaText == null) {
 				tResp.setCode(Response.FAILED);
 				tResp.setMessage("Could not find text in area. Area is empty!");

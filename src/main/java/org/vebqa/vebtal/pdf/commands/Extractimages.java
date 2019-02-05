@@ -16,11 +16,14 @@ import org.apache.pdfbox.pdmodel.graphics.PDXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.CurrentDocument;
+import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
+@Keyword(module = PdfTestAdaptionPlugin.ID, command = "extractImages", hintTarget = "page=")
 public class Extractimages extends AbstractCommand {
 
 	private static final Logger logger = LoggerFactory.getLogger(Extractimages.class);

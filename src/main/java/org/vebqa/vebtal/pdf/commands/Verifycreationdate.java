@@ -5,11 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.CurrentDocument;
+import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
+@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyCreationDate", hintTarget = "<yyyy-MM-dd-hh-mm-ss>")
 public class Verifycreationdate extends AbstractCommand {
 
 	public Verifycreationdate(String aCommand, String aTarget, String aValue) {

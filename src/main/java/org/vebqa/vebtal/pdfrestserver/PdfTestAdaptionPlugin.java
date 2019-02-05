@@ -1,11 +1,14 @@
 package org.vebqa.vebtal.pdfrestserver;
 
+import java.util.List;
 import java.util.TreeSet;
 
 import org.apache.commons.configuration2.CombinedConfiguration;
 import org.vebqa.vebtal.AbstractTestAdaptionPlugin;
 import org.vebqa.vebtal.CommandAutoComplete;
 import org.vebqa.vebtal.GuiManager;
+import org.vebqa.vebtal.KeywordEntry;
+import org.vebqa.vebtal.KeywordFinder;
 import org.vebqa.vebtal.TestAdaptionType;
 import org.vebqa.vebtal.model.Command;
 import org.vebqa.vebtal.model.CommandResult;
@@ -23,6 +26,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 
@@ -52,18 +59,25 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 	@Override
 	public Tab startup() {
 		Tab pdfTab = createTab(ID, commandList, clData);
-		// Add
-		TreeSet<String> allCommands = new TreeSet<String>();
-		allCommands.add("open");
-		allCommands.add("verifyText");
-		final CommandAutoComplete addCommand = new CommandAutoComplete(allCommands);
+		
+		// Add (Test generation)
+		Text txtGeneration = new Text();
+		txtGeneration.setText("test generation");
+		txtGeneration.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 16)); 
+		
+		List<KeywordEntry> allModuleKeywords = KeywordFinder.getinstance().getKeywordsByModule(PdfTestAdaptionPlugin.ID);
+		TreeSet<String> sortedKeywords = new TreeSet<>();
+		for (KeywordEntry aKeyword : allModuleKeywords) {
+			sortedKeywords.add(aKeyword.getCommand());
+		}
+		final CommandAutoComplete addCommand = new CommandAutoComplete(sortedKeywords);
         addCommand.setPromptText("Command");
         addCommand.setMaxWidth(200);
         final TextField addTarget = new TextField();
-        addTarget.setMaxWidth(200);
+        addTarget.setMaxWidth(350);
         addTarget.setPromptText("Target");
         final TextField addValue = new TextField();
-        addValue.setMaxWidth(200);
+        addValue.setMaxWidth(350);
         addValue.setPromptText("Value");
  
         final Button addButton = new Button("Go");
@@ -84,8 +98,8 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
         });
  
         HBox hbox = new HBox();
-         
-        hbox.getChildren().addAll(addCommand, addTarget, addValue, addButton);
+        
+        hbox.getChildren().addAll(txtGeneration, addCommand, addTarget, addValue, addButton);
         hbox.setSpacing(3);
 
 		BorderPane pane = (BorderPane)pdfTab.getContent();
