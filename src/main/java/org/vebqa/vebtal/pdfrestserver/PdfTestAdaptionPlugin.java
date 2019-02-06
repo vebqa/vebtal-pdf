@@ -24,8 +24,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -63,7 +69,7 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 		// Add (Test generation)
 		Text txtGeneration = new Text();
 		txtGeneration.setText("test generation");
-		txtGeneration.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 16)); 
+		txtGeneration.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20)); 
 		
 		List<KeywordEntry> allModuleKeywords = KeywordFinder.getinstance().getKeywordsByModule(PdfTestAdaptionPlugin.ID);
 		TreeSet<String> sortedKeywords = new TreeSet<>();
@@ -100,9 +106,10 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
         HBox hbox = new HBox();
         
         hbox.getChildren().addAll(txtGeneration, addCommand, addTarget, addValue, addButton);
-        hbox.setSpacing(3);
-
-		BorderPane pane = (BorderPane)pdfTab.getContent();
+        hbox.setSpacing(5);
+        hbox.setBorder(new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID, new CornerRadii(2), new BorderWidths(3))));
+        
+        BorderPane pane = (BorderPane)pdfTab.getContent();
 		pane.setTop(hbox);        
 
 		
