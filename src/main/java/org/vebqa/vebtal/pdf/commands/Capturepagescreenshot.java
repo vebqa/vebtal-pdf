@@ -19,7 +19,7 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.CurrentDocument;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "capturePageScreenshot", hintTarget = "page=")
+@Keyword(module = PdfTestAdaptionPlugin.ID, command = "capturePageScreenshot", hintTarget = "page=", hintValue = "path/to/screenshot.png")
 public class Capturepagescreenshot extends AbstractCommand {
 
 	private static final Logger logger = LoggerFactory.getLogger(Capturepagescreenshot.class);
@@ -52,6 +52,13 @@ public class Capturepagescreenshot extends AbstractCommand {
 			logger.error("Error while saving pdf page as image!", e);
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Could not write Image to file: " + value);
+		} finally {
+			try {
+				inputStream.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		tResp.setCode(Response.PASSED);
