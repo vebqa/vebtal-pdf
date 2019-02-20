@@ -20,7 +20,7 @@ import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.CurrentDocument;
+import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, command = "extractImages", hintTarget = "page=")
@@ -36,6 +36,8 @@ public class Extractimages extends AbstractCommand {
 	@Override
 	public Response executeImpl(Object aDocument) {
 
+		PDFDriver driver = (PDFDriver)aDocument;
+
 		Response tResp = new Response();
 
 		// resolve target
@@ -45,13 +47,11 @@ public class Extractimages extends AbstractCommand {
 		String pageText = null;
 		int pageToExtact = Integer.parseInt(token[1]);
 
-		CurrentDocument.getInstance().getDoc();
-
 		// count found images
 		int i = 0;
 		try {
 			InputStream inputStream = new ByteArrayInputStream(
-					CurrentDocument.getInstance().getDoc().getContentStream());
+					driver.getContentStream());
 			PDDocument pdf = PDDocument.load(inputStream);
 			PDPageTree list = pdf.getPages();
 			int pageCount = 0;

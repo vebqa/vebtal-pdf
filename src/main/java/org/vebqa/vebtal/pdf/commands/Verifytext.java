@@ -13,8 +13,7 @@ import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.CurrentDocument;
-import org.vebqa.vebtal.pdf.PDF;
+import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyText", hintTarget = "page=")
@@ -37,15 +36,17 @@ public class Verifytext extends AbstractCommand {
 	@Override
 	public Response executeImpl(Object aDocument) {
 
+		PDFDriver driver = (PDFDriver)aDocument;
+
 		Response tResp = new Response();
 
 		if (target == null || target.contentEquals("")) {
-			Matcher<PDF> matcher = CurrentDocument.getInstance().getDoc().containsText(value);
+			Matcher<PDFDriver> matcher = driver.containsText(value);
 
-			if (CurrentDocument.getInstance().getDoc() == null) {
+			if (!driver.isLoaded()) {
 				tResp.setCode(Response.FAILED);
 				tResp.setMessage("No SUT loaded yet. Cannot test against null.");
-			} else if (matcher.matches(CurrentDocument.getInstance().getDoc())) {
+			} else if (matcher.matches(driver)) {
 				tResp.setCode(Response.PASSED);
 				tResp.setMessage("Successfully found text: " + value);
 			} else {
@@ -62,7 +63,7 @@ public class Verifytext extends AbstractCommand {
 				stripper.setStartPage(Integer.parseInt(token[1]));
 				stripper.setEndPage(Integer.parseInt(token[1]));
 				
-				InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().getContentStream());
+				InputStream inputStream = new ByteArrayInputStream(driver.getContentStream());
 				PDDocument pdf = PDDocument.load(inputStream);
 				pageText = stripper.getText(pdf);
 			} catch (IOException e) {

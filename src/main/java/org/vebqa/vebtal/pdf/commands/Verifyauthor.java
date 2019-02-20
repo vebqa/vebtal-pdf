@@ -4,7 +4,7 @@ import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.CurrentDocument;
+import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyAuthor", hintTarget = "<string>")
@@ -18,20 +18,22 @@ public class Verifyauthor extends AbstractCommand {
 	@Override
 	public Response executeImpl(Object aDocument) {
 
+		PDFDriver driver = (PDFDriver)aDocument;
+
 		Response tResp = new Response();
 
-		if (CurrentDocument.getInstance().getDoc().author == null) {
+		if (driver.author == null) {
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Document does not have a author value. Attribute is null!");
 			return tResp;
 		}		
 		
-		if (CurrentDocument.getInstance().getDoc().author.contains(target)) {
+		if (driver.author.contains(target)) {
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage("Successfully found author: " + target);
 		} else {
 			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Expected author: " + target + " but found: " + CurrentDocument.getInstance().getDoc().author);
+			tResp.setMessage("Expected author: " + target + " but found: " + driver.author);
 		}
 		return tResp;
 	}

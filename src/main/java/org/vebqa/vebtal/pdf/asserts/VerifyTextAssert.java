@@ -6,7 +6,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.assertj.core.api.AbstractAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vebqa.vebtal.pdf.PDFResource;
+import org.vebqa.vebtal.pdf.PDFDriver;
 
 /**
  * Special assertion class - inherits from AbstractAssert!
@@ -14,7 +14,7 @@ import org.vebqa.vebtal.pdf.PDFResource;
  * @author doerges
  *
  */
-public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFResource> {
+public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFDriver> {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifyTextAssert.class);
 
@@ -27,7 +27,7 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFResour
 	 * 
 	 * @param	aPdfToTest	a resource to test
 	 */
-	public VerifyTextAssert(PDFResource aPdfToTest) {
+	public VerifyTextAssert(PDFDriver aPdfToTest) {
 		super(aPdfToTest, VerifyTextAssert.class);
 	}
 
@@ -38,7 +38,7 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFResour
 	 * @param	aDoc	our document to test
 	 * @return	new object
 	 */
-	public static VerifyTextAssert assertThat(PDFResource aDoc) {
+	public static VerifyTextAssert assertThat(PDFDriver aDoc) {
 		return new VerifyTextAssert(aDoc);
 	}
 

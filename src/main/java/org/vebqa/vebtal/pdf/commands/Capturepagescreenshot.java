@@ -16,7 +16,7 @@ import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.CurrentDocument;
+import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, command = "capturePageScreenshot", hintTarget = "page=", hintValue = "path/to/screenshot.png")
@@ -32,6 +32,8 @@ public class Capturepagescreenshot extends AbstractCommand {
 	@Override
 	public Response executeImpl(Object aDocument) {
 
+		PDFDriver driver = (PDFDriver)aDocument;
+
 		String[] token = target.split("=");
 		int page = Integer.parseInt(token[1]);
 		// page tree starts at 0!
@@ -39,7 +41,7 @@ public class Capturepagescreenshot extends AbstractCommand {
 
 		Response tResp = new Response();
 
-		InputStream inputStream = new ByteArrayInputStream(CurrentDocument.getInstance().getDoc().getContentStream());
+		InputStream inputStream = new ByteArrayInputStream(driver.getContentStream());
 		try {
 			PDDocument pdf = PDDocument.load(inputStream);
 			PDFRenderer pdfRenderer = new PDFRenderer(pdf);

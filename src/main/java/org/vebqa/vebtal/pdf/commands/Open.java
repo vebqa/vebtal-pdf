@@ -6,15 +6,12 @@ import java.nio.file.NoSuchFileException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vebqa.vebtal.GuiManager;
 import org.vebqa.vebtal.annotations.Keyword;
+import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.CurrentDocument;
-import org.vebqa.vebtal.pdf.PDF;
+import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
-import org.vebqa.vebtal.sut.SutStatus;
-import org.vebqa.vebtal.command.AbstractCommand;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, command = "open", hintTarget = "path/to/doc.pdf")
 public class Open extends AbstractCommand {
@@ -29,10 +26,13 @@ public class Open extends AbstractCommand {
 	@Override
 	public Response executeImpl(Object aDocument) {
 
+		PDFDriver driver = (PDFDriver)aDocument;
+		
 		Response tResp = new Response();
 		boolean successfullyLoaded = false;
 		try {
-			CurrentDocument.getInstance().setDoc(new PDF(new File(this.target)));
+			// CurrentDocument.getInstance().setDoc(new PDF(new File(this.target)));
+			driver.load(new File(this.target));
 			successfullyLoaded = true;
 		} catch (NoSuchFileException e) {
 			logger.error("File not found: {}.", e.getMessage());
@@ -44,14 +44,13 @@ public class Open extends AbstractCommand {
 			tResp.setMessage(e.getMessage());
 		}
 		
-		if ( successfullyLoaded && CurrentDocument.getInstance().getDoc().getContentStream() == null ) {
+		if ( successfullyLoaded && driver.getContentStream() == null ) {
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Cannot process pdf: " + this.target);
 		} else if (successfullyLoaded) {
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage("SUT file successfully read.");
-			logger.info("PDF successfully opend with {} Pages. ", CurrentDocument.getInstance().getDoc().numberOfPages);
-			GuiManager.getinstance().setTabStatus(PdfTestAdaptionPlugin.ID, SutStatus.CONNECTED);
+			logger.info("PDF successfully opend with {} Pages. ", driver.numberOfPages);
 		}
 		return tResp;
 	}

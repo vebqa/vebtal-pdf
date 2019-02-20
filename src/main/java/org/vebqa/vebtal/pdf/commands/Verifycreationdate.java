@@ -9,7 +9,7 @@ import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.CurrentDocument;
+import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyCreationDate", hintTarget = "<yyyy-MM-dd-hh-mm-ss>")
@@ -21,16 +21,19 @@ public class Verifycreationdate extends AbstractCommand {
 	}
 
 	@Override
-	public Response executeImpl(Object driver) {
+	public Response executeImpl(Object aDocument) {
+		
+		PDFDriver driver = (PDFDriver)aDocument;
+
 		Response tResp = new Response();
 
-		if (CurrentDocument.getInstance().getDoc().creationDate == null) {
+		if (driver.creationDate == null) {
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Document does not have a creation date. Attribute is null!");
 			return tResp;
 		}
 		
-		Calendar created = CurrentDocument.getInstance().getDoc().creationDate;
+		Calendar created = driver.creationDate;
 		
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
 	    Date date = null; 
@@ -53,5 +56,4 @@ public class Verifycreationdate extends AbstractCommand {
 		}
 		return tResp;
 	}
-
 }

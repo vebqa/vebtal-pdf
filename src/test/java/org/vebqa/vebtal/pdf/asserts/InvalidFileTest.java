@@ -3,7 +3,7 @@ package org.vebqa.vebtal.pdf.asserts;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.vebqa.vebtal.pdf.PDFResource;
+import org.vebqa.vebtal.pdf.PDFDriver;
 
 public class InvalidFileTest {
 
@@ -11,7 +11,7 @@ public class InvalidFileTest {
 	public ExpectedException thrown = ExpectedException.none();
 	
 	@Rule
-	public final PDFResource dut = new PDFResource().loadDocument("./src/test/java/resource/InvalidFile.pdf");
+	public final PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/InvalidFile.pdf");
 		
 	
 	@Test

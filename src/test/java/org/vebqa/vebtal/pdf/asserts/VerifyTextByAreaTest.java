@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
-import org.vebqa.vebtal.pdf.PDFResource;
+import org.vebqa.vebtal.pdf.PDFDriver;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class VerifyTextByAreaTest {
@@ -16,7 +16,7 @@ public class VerifyTextByAreaTest {
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Rule
-	public PDFResource dut = new PDFResource().loadDocument("./src/test/java/resource/Testtext_Area.pdf");
+	public PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/Testtext_Area.pdf");
 
 	@Test
 	public void checkThatTextIsAvailabeInSpecificArea() {

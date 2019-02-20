@@ -10,12 +10,12 @@ public class ContainsText extends PDFMatcher {
   }
 
   @Override
-  protected boolean matchesSafely(PDF item) {
+  protected boolean matchesSafely(PDFDriver item) {
     return reduceSpaces(item.text).contains(reduceSpaces(substring));
   }
 
   @Override
-  protected void describeMismatchSafely(PDF item, Description mismatchDescription) {
+  protected void describeMismatchSafely(PDFDriver item, Description mismatchDescription) {
     mismatchDescription.appendText("was \"").appendText(reduceSpaces(item.text)).appendText("\"");
   }
 
