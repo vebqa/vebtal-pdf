@@ -44,7 +44,6 @@ public class Extractimages extends AbstractCommand {
 		String[] token = target.split("=");
 		// token[0] ist "page"
 		// token[1] ist int>page
-		String pageText = null;
 		int pageToExtact = Integer.parseInt(token[1]);
 
 		// count found images
