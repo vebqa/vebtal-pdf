@@ -75,6 +75,8 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 		}
 		if (PDFStore.getStore().getDriver().isLoaded()) {
 			GuiManager.getinstance().setTabStatus(PdfTestAdaptionPlugin.ID, SutStatus.CONNECTED);
+		} else {
+			GuiManager.getinstance().setTabStatus(PdfTestAdaptionPlugin.ID, SutStatus.DISCONNECTED);
 		}
 
 		// enable user actions
