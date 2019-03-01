@@ -5,10 +5,10 @@
 	<parent>
 		<groupId>com.github.vebqa</groupId>
 		<artifactId>vebtal-parent</artifactId>
-		<version>0.9.7</version>
+		<version>0.9.9</version>
 	</parent>
 	<artifactId>vebtal-pdf</artifactId>
-	<version>0.9.13</version>
+	<version>0.9.14</version>
 
 	<name>Test Adaption Layer for PDF documents</name>
 	<description>Provides access for testing PDF documents with api for REST or JUnit / AssertJ</description>
@@ -50,7 +50,7 @@
 		<dependency>
 			<groupId>com.github.vebqa</groupId>
 			<artifactId>vebtal-api</artifactId>
-			<version>0.9.10</version>
+			<version>0.9.12</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.25</version>
+			<version>${version.slf4j}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
