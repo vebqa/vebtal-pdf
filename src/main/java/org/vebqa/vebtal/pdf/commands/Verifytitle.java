@@ -33,7 +33,7 @@ public class Verifytitle extends AbstractCommand {
 			tResp.setMessage("Successfully found title: " + this.target);
 		} else {
 			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Expected title: " + this.target + " but found: " + driver.title);
+			tResp.setMessage("Expected title was <" + this.target + "> but found <" + driver.title + ">.");
 		}
 		return tResp;
 	}

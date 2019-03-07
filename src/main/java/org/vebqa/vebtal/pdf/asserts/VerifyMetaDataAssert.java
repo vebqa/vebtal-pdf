@@ -37,7 +37,7 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
     	isNotNull();
 
 		if (this.actual.getDocument().getNumberOfPages() != pages) {
-			failWithMessage("Expected text is <%s> but was <%s>", pages, this.actual.getDocument().getNumberOfPages());
+			failWithMessage("Expected no. of pages <%s> but was <%s>.", pages, this.actual.getDocument().getNumberOfPages());
 		}
 		
 		return this;

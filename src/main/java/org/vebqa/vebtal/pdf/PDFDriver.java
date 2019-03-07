@@ -26,7 +26,7 @@ public class PDFDriver extends ExternalResource {
 	private boolean isLoaded;
 
 	private String pathToResource;
-	
+
 	private PDDocument document;
 
 	private byte[] content;
@@ -45,15 +45,19 @@ public class PDFDriver extends ExternalResource {
 	public boolean signed;
 	public String signerName;
 	public Calendar signatureTime;
+	public String fileName;
 
 	public PDFDriver() {
 		this.isLoaded = false;
 		this.content = null;
 	}
 
+	public String getFilePath() {
+		return this.pathToResource;
+	}
+
 	public PDFDriver loadDocument(String aPathToDoc) {
 		this.pathToResource = aPathToDoc;
-		
 		return this;
 	}
 
@@ -77,6 +81,7 @@ public class PDFDriver extends ExternalResource {
 		try (InputStream inputStream = new ByteArrayInputStream(content)) {
 			this.document = PDDocument.load(inputStream);
 			this.text = new PDFTextStripper().getText(this.document);
+			this.fileName = this.getFilePath().substring(getFilePath().lastIndexOf("/") + 1);
 			this.numberOfPages = this.document.getNumberOfPages();
 			this.author = this.document.getDocumentInformation().getAuthor();
 			this.creationDate = this.document.getDocumentInformation().getCreationDate();
@@ -86,7 +91,6 @@ public class PDFDriver extends ExternalResource {
 			this.subject = this.document.getDocumentInformation().getSubject();
 			this.title = this.document.getDocumentInformation().getTitle();
 			this.encrypted = this.document.isEncrypted();
-
 			PDSignature signature = this.document.getLastSignatureDictionary();
 			this.signed = signature != null;
 			this.signerName = signature == null ? null : signature.getName();
@@ -95,7 +99,7 @@ public class PDFDriver extends ExternalResource {
 			logger.error("Invalid PDF file: {}", name);
 			throw new IllegalArgumentException("Invalid PDF file: " + name, e);
 		} catch (IOException e) {
-			logger.error("There is an error while processing the document!", e);
+			logger.error("There was an error while processing the document!", e);
 		}
 	}
 
@@ -140,7 +144,7 @@ public class PDFDriver extends ExternalResource {
 	public byte[] getContentStream() {
 		return this.content;
 	}
-	
+
 	/**
 	 * initialize resource before testcase.
 	 */

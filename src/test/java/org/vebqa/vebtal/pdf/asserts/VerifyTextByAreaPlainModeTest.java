@@ -1,6 +1,6 @@
 package org.vebqa.vebtal.pdf.asserts;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,14 +21,13 @@ public class VerifyTextByAreaPlainModeTest {
 	@Rule
 	public final PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/Testtext_Area.pdf");
 
-
 	@Test
 	public void checkThatTextIsAvailabeInSpecificArea() {
 		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(350, 220, 65, 15).check();
 	}
 
 	@Test(expected = AssertionError.class)
-	public void failBecausTextIsNotAvailabeInSpecificArea() {
+	public void failBecauseTextIsNotAvailabeInSpecificArea() {
 		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(1, 1, 65, 15).check();
 	}
 
@@ -40,7 +39,8 @@ public class VerifyTextByAreaPlainModeTest {
 	@Test
 	public void failBecauseOnlyTextFragmentIsAvailabeInSpecificArea() {
 		thrown.expect(AssertionError.class);
-		thrown.expectMessage(containsString("text."));
+		thrown.expectMessage(
+				startsWith("Expected text <This is a text.> is not availabe in the located area. Instead found: <"));
 
 		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(390, 220, 25, 15).check();
 	}

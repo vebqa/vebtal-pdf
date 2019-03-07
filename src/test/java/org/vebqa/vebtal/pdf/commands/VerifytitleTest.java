@@ -13,11 +13,29 @@ public class VerifytitleTest {
 	@Rule
 	public final PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum_3Pages.pdf");
 	
+	@Rule
+	public final PDFDriver dut_nt = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum_3Pages_NoTitle.pdf");
+
 	@Test
-	public void verifySubjectFailWithText() {
+	public void verifyTitle() {
+		// create command to test
+		Verifytitle cmd = new Verifytitle("verifyTitle", "Test Title", "");
+		Response result = cmd.executeImpl(dut);
+		
+		// create a green result object
+		Response resultCheck = new Response();
+		resultCheck.setCode(Response.PASSED);
+		resultCheck.setMessage("Successfully found title: Test Title");
+		
+		// check
+		assertThat(resultCheck, samePropertyValuesAs(result));
+	}
+	
+	@Test
+	public void verifyTitleFailWithNoTitle() {
 		// create command to test
 		Verifytitle cmd = new Verifytitle("verifyTitle", "Uhm", "");
-		Response result = cmd.executeImpl(dut);
+		Response result = cmd.executeImpl(dut_nt);
 		
 		// create a green result object
 		Response resultCheck = new Response();
@@ -27,4 +45,20 @@ public class VerifytitleTest {
 		// check
 		assertThat(resultCheck, samePropertyValuesAs(result));
 	}
+	
+	@Test
+	public void verifyTitleFailWithMismatch() {
+		// create command to test
+		Verifytitle cmd = new Verifytitle("verifyTitle", "Uhm", "");
+		Response result = cmd.executeImpl(dut);
+		
+		// create a green result object
+		Response resultCheck = new Response();
+		resultCheck.setCode(Response.FAILED);
+		resultCheck.setMessage("Expected title was <Uhm> but found <Test Title>.");
+		
+		// check
+		assertThat(resultCheck, samePropertyValuesAs(result));
+	}
+	
 }

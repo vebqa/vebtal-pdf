@@ -1,6 +1,6 @@
 package org.vebqa.vebtal.pdf.asserts;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,13 +19,8 @@ public class VerifyTextByAreaTest {
 	public PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/Testtext_Area.pdf");
 
 	@Test
-	public void checkThatTextIsAvailabeInSpecificArea() {
+	public void checkIfEntireTextIsAvailabeInSpecificArea() {
 		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(350, 220, 65, 15).check();
-	}
-
-	@Test(expected = AssertionError.class)
-	public void failBecausTextIsNotAvailabeInSpecificArea() {
-		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(1, 1, 65, 15).check();
 	}
 
 	@Test
@@ -34,11 +29,37 @@ public class VerifyTextByAreaTest {
 	}
 
 	@Test
-	public void failBecauseOnlyTextFragmentIsAvailabeInSpecificArea() {
+	public void failWhileTextIsNotAvailabeInSpecifiedArea() {
 		thrown.expect(AssertionError.class);
-		thrown.expectMessage(containsString("text."));
+		thrown.expectMessage(
+				startsWith("Expected text <This is a text.> is not availabe in the located area. Instead found: <"));
+
+		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(1, 1, 65, 15).check();
+	}
+
+	@Test
+	public void failWhileOnlyTextFragmentIsAvailabeInSpecificArea() {
+		thrown.expect(AssertionError.class);
+		thrown.expectMessage(
+				"Expected text <This is a text.> is not availabe in the located area. Instead found: <text. \r\n>");
 
 		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(390, 220, 25, 15).check();
+	}
+	
+//	@Test
+	public void failWithInvalidPDFDocument() {
+		thrown.expect(AssertionError.class);
+		thrown.expectMessage("Cannot extract text from area!");
+
+		VerifyTextByAreaAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/InvalidFile.pdf")).hasText("This is a text.").atPage(1).inArea(390, 220, 25, 15).check();
+	}
+	
+//	@Test
+	public void failWithNonExistingPDFDocument() {
+		thrown.expect(AssertionError.class);
+		thrown.expectMessage("Cannot extract text from area!");
+
+		VerifyTextByAreaAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/NonExistingFile.pdf")).hasText("This is a text.").atPage(1).inArea(390, 220, 25, 15).check();
 	}
 
 }

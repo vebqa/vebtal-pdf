@@ -25,7 +25,7 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFDriver
 	 * Constructor assertion class, PDF filename ist the object we want to make
 	 * assertions on.
 	 * 
-	 * @param	aPdfToTest	a resource to test
+	 * @param aPdfToTest a resource to test
 	 */
 	public VerifyTextAssert(PDFDriver aPdfToTest) {
 		super(aPdfToTest, VerifyTextAssert.class);
@@ -35,8 +35,8 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFDriver
 	 * A fluent entry point to our specific assertion class, use it with static
 	 * import.
 	 * 
-	 * @param	aDoc	our document to test
-	 * @return	new object
+	 * @param aDoc our document to test
+	 * @return new object
 	 */
 	public static VerifyTextAssert assertThat(PDFDriver aDoc) {
 		return new VerifyTextAssert(aDoc);
@@ -45,8 +45,8 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFDriver
 	/**
 	 * Part of assertion - configure
 	 * 
-	 * @param	someText	some text we are expecting
-	 * @return	self
+	 * @param someText some text we are expecting
+	 * @return self
 	 */
 	public VerifyTextAssert hasText(String someText) {
 		this.textToFind = someText;
@@ -56,8 +56,8 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFDriver
 	/**
 	 * Part of assertion - configure
 	 * 
-	 * @param	aPageNumber	the page number we want to test
-	 * @return	self
+	 * @param aPageNumber the page number we want to test
+	 * @return self
 	 */
 	public VerifyTextAssert atPage(int aPageNumber) {
 		this.page = aPageNumber;
@@ -67,17 +67,19 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFDriver
 	/**
 	 * A specific assertion
 	 * 
-	 * @return	self
+	 * @return self
 	 */
 	public VerifyTextAssert check() {
 		// check that we really have a pdf document defined and loaded.
 		isNotNull();
+
 		if (this.actual.getDocument() == null) {
-			failWithMessage("Could not read data from file <%s>", actual);
+			failWithMessage("File does not exist.");
 			return this;
 		}
 
 		String pageText = "";
+
 		try {
 			PDFTextStripper stripper = new PDFTextStripper();
 			if (page != -1) {
@@ -93,10 +95,11 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFDriver
 			failWithMessage("Expected text is <%s> but was null", this.textToFind);
 		}
 		if (!pageText.contains(this.textToFind)) {
-			failWithMessage("Expected text is <%s> but was <%s>", this.textToFind, pageText);
+			failWithMessage("Expected text <%s> not found in the content <%s>.", this.textToFind, pageText);
 		}
 
-		// Hint for designing and creating tests: we want to print the coordinates of the text finding.
+		// Hint for designing and creating tests: we want to print the coordinates of
+		// the text finding.
 		return this;
 	}
 }
