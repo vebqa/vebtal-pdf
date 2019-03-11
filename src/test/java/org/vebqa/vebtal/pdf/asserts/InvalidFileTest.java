@@ -1,23 +1,25 @@
 package org.vebqa.vebtal.pdf.asserts;
 
-import static org.hamcrest.core.StringStartsWith.startsWith;
+import static org.junit.Assert.*;
 
-import org.junit.Rule;
+import java.io.IOException;
+
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.vebqa.vebtal.pdf.PDFDriver;
 
 public class InvalidFileTest {
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
-
-//	@Test
+	@Test
 	public void failBecauseFileIsInvalid() {
-		thrown.expect(AssertionError.class);
-		thrown.expectMessage(startsWith("Cannot read data from file <"));
 
-		VerifyTextAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/InvalidFile.pdf"));
+		try {
+			VerifyTextByAreaAssert
+					.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/InvalidFile.pdf").load())
+					.hasText("This is a text.").atPage(1).inArea(390, 220, 25, 15).check();
+			assertFalse(true);
+		} catch (IOException e) {
+			assertTrue(true);
+		}
 	}
 
 }

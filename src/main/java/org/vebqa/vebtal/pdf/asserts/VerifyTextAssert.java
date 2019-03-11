@@ -74,7 +74,7 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFDriver
 		isNotNull();
 
 		if (this.actual.getDocument() == null) {
-			failWithMessage("File does not exist.");
+			failWithMessage("No document loaded!");
 			return this;
 		}
 
@@ -92,7 +92,7 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFDriver
 			failWithMessage("Cannot read data from file <%s>, maybe it is invalid!", actual);
 		}
 		if (pageText == null) {
-			failWithMessage("Expected text is <%s> but was null", this.textToFind);
+			failWithMessage("Expected text is <%s>, but the page was empty.", this.textToFind);
 		}
 		if (!pageText.contains(this.textToFind)) {
 			failWithMessage("Expected text <%s> not found in the content <%s>.", this.textToFind, pageText);

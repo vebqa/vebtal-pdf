@@ -1,6 +1,10 @@
 package org.vebqa.vebtal.pdf.asserts;
 
 import static org.hamcrest.core.StringStartsWith.startsWith;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,8 +27,7 @@ public class VerifyTextAssertTest {
 	@Test
 	public void checkThatSomeTextIsNotAvailable() {
 		thrown.expect(AssertionError.class);
-		thrown.expectMessage(
-				startsWith("Expected text <Duis autem Entenhausen> not found in the content <"));
+		thrown.expectMessage(startsWith("Expected text <Duis autem Entenhausen> not found in the content <"));
 
 		VerifyTextAssert.assertThat(dut).hasText("Duis autem Entenhausen").check();
 	}
@@ -32,19 +35,24 @@ public class VerifyTextAssertTest {
 	@Test
 	public void failWhileFileDoesNotExist() {
 		thrown.expect(AssertionError.class);
-		thrown.expectMessage("File does not exist.");
+		thrown.expectMessage("No document loaded!");
 
 		VerifyTextAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/FileNotExisting.pdf"))
 				.hasText("FindMe!").check();
 	}
 
-//	@Test
-	public void failWhileFileIsInvalid() {
-		thrown.expect(AssertionError.class);
-		thrown.expectMessage(startsWith("Cannot read data from file <"));
+	@Test
+	public void failWhileFileIsEmpty() {
 
-		VerifyTextAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/InvalidFile.pdf"))
-				.hasText("FindMe!").check();
+		try {
+			VerifyTextAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/EmptyFile.pdf").load())
+					.hasText("FindMe!").check();
+			assertFalse("AssertionError expected.", true);
+		} catch (AssertionError e) {
+			assertTrue(e.getMessage() == "Expected text <FindMe!> not found in the content < \r\n>.");
+		} catch (IOException e) {
+			assertFalse("Got an IOException, but expected an AssertionError.", true);
+		}
 	}
 
 }

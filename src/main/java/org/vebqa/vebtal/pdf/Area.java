@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 public class Area {
 
 	private static final Logger logger = LoggerFactory.getLogger(Area.class);
-	
+
 	private int page = 1;
 	private int x = 0;
 	private int y = 0;
@@ -66,8 +66,9 @@ public class Area {
 	public Rectangle2D getRectangle() {
 		return new Rectangle2D.Float(x, y, width, height);
 	}
-	
+
 	public int getPage() {
 		return page;
 	}
+	
 }

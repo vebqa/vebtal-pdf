@@ -45,21 +45,5 @@ public class VerifyTextByAreaTest {
 
 		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(390, 220, 25, 15).check();
 	}
-	
-//	@Test
-	public void failWithInvalidPDFDocument() {
-		thrown.expect(AssertionError.class);
-		thrown.expectMessage("Cannot extract text from area!");
-
-		VerifyTextByAreaAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/InvalidFile.pdf")).hasText("This is a text.").atPage(1).inArea(390, 220, 25, 15).check();
-	}
-	
-//	@Test
-	public void failWithNonExistingPDFDocument() {
-		thrown.expect(AssertionError.class);
-		thrown.expectMessage("Cannot extract text from area!");
-
-		VerifyTextByAreaAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/NonExistingFile.pdf")).hasText("This is a text.").atPage(1).inArea(390, 220, 25, 15).check();
-	}
 
 }

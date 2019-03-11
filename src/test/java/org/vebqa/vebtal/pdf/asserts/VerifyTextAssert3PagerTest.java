@@ -41,22 +41,4 @@ public class VerifyTextAssert3PagerTest {
 		VerifyTextAssert.assertThat(dut).hasText("Marker Page 2").atPage(1).check();
 	}
 
-	@Test
-	public void failWhileFileDoesNotExist() {
-		thrown.expect(AssertionError.class);
-		thrown.expectMessage(startsWith("File does not exist."));
-
-		VerifyTextAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/FileNotExisting.pdf"))
-				.hasText("Marker Page 1").atPage(1).check();
-	}
-
-//	@Test
-	public void failWhileFileIsInvalid() {
-		thrown.expect(AssertionError.class);
-		thrown.expectMessage(startsWith("Cannot read data from file <"));
-
-		VerifyTextAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/InvalidFile.pdf"))
-				.hasText("Marker Page 1").atPage(1).check();
-	}
-
 }

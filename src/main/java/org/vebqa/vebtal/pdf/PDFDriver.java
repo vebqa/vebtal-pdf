@@ -34,6 +34,7 @@ public class PDFDriver extends ExternalResource {
 	// Document Information
 	public String text;
 	public int numberOfPages;
+	
 	public String author;
 	public Calendar creationDate;
 	public String creator;
@@ -61,6 +62,10 @@ public class PDFDriver extends ExternalResource {
 		return this;
 	}
 
+	public PDFDriver load() throws IOException {
+		load(this.pathToResource, readAllBytes(Paths.get(this.pathToResource)));
+		return this;
+	}
 	public void load(File pdfFile) throws IOException {
 		load(pdfFile.getAbsolutePath(), readAllBytes(Paths.get(pdfFile.getAbsolutePath())));
 	}
@@ -69,7 +74,7 @@ public class PDFDriver extends ExternalResource {
 		load(url.toString(), readBytes(url));
 	}
 
-	private void load(String name, byte[] content) {
+	private void load(String name, byte[] content) throws IOException {
 		this.content = content;
 
 		// separate metadata if availabe in
@@ -100,6 +105,7 @@ public class PDFDriver extends ExternalResource {
 			throw new IllegalArgumentException("Invalid PDF file: " + name, e);
 		} catch (IOException e) {
 			logger.error("There was an error while processing the document!", e);
+			throw new IOException("Cannot load PDF: ", e);
 		}
 	}
 

@@ -30,6 +30,7 @@ public class Open extends AbstractCommand {
 		
 		Response tResp = new Response();
 		boolean successfullyLoaded = false;
+		
 		try {
 			// CurrentDocument.getInstance().setDoc(new PDF(new File(this.target)));
 			driver.load(new File(this.target));
@@ -54,4 +55,5 @@ public class Open extends AbstractCommand {
 		}
 		return tResp;
 	}
+	
 }
