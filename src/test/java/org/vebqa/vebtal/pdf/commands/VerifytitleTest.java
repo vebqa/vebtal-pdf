@@ -14,7 +14,7 @@ public class VerifytitleTest {
 	public final PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum_3Pages.pdf");
 	
 	@Rule
-	public final PDFDriver dut_nt = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum_3Pages_NoTitle.pdf");
+	public final PDFDriver dut_nt = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum500.pdf");
 
 	@Test
 	public void verifyTitle() {
@@ -32,7 +32,7 @@ public class VerifytitleTest {
 	}
 	
 	@Test
-	public void verifyTitleFailWithNoTitle() {
+	public void verifyTitleFailWithoutTitle() {
 		// create command to test
 		Verifytitle cmd = new Verifytitle("verifyTitle", "Uhm", "");
 		Response result = cmd.executeImpl(dut_nt);
@@ -47,7 +47,7 @@ public class VerifytitleTest {
 	}
 	
 	@Test
-	public void verifyTitleFailWithMismatch() {
+	public void verifyTitleMismatch() {
 		// create command to test
 		Verifytitle cmd = new Verifytitle("verifyTitle", "Uhm", "");
 		Response result = cmd.executeImpl(dut);

@@ -11,13 +11,31 @@ import org.vebqa.vebtal.pdf.PDFDriver;
 public class VerifysubjectTest {
 
 	@Rule
-	public final PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum_3Pages.pdf");
+	public final PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/SampleFile.pdf");
+
+	@Rule
+	public final PDFDriver dut_ns = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum500.pdf");
+
+	@Test
+	public void verifySubject() {
+		// create command to test
+		Verifysubject cmd = new Verifysubject("verifySubject", "Test Document", "");
+		Response result = cmd.executeImpl(dut);
+		
+		// create a green result object
+		Response resultCheck = new Response();
+		resultCheck.setCode(Response.PASSED);
+		resultCheck.setMessage("Successfully found subject: Test Document");
+		
+		// check
+		assertThat(resultCheck, samePropertyValuesAs(result));
+	}
 	
 	@Test
-	public void verifySubjectFailWithText() {
+	public void verifySubjectFailWithoutSubject() {
 		// create command to test
 		Verifysubject cmd = new Verifysubject("verifySubject", "Test", "");
-		Response result = cmd.executeImpl(dut);
+		Response result = cmd.executeImpl(dut_ns);
 		
 		// create a green result object
 		Response resultCheck = new Response();
@@ -27,4 +45,20 @@ public class VerifysubjectTest {
 		// check
 		assertThat(resultCheck, samePropertyValuesAs(result));
 	}
+	
+	@Test
+	public void verifySubjectMismatch() {
+		// create command to test
+		Verifysubject cmd = new Verifysubject("verifySubject", "Testing", "");
+		Response result = cmd.executeImpl(dut);
+		
+		// create a green result object
+		Response resultCheck = new Response();
+		resultCheck.setCode(Response.FAILED);
+		resultCheck.setMessage("Expected subject: \"Testing\", but found: \"Test Document\"");
+		
+		// check
+		assertThat(resultCheck, samePropertyValuesAs(result));
+	}
+	
 }

@@ -71,10 +71,10 @@ public class Verifytext extends AbstractCommand {
 			}
 			if (pageText != null && pageText.contains(value)) {
 				tResp.setCode(Response.PASSED);
-				tResp.setMessage("Expected text: " + value + " found at page: " + token[1]);
+				tResp.setMessage("Expected text <" + value + "> found in page: " + token[1]);
 			} else {
 				tResp.setCode(Response.FAILED);
-				tResp.setMessage("Did not find expected text: " + value + ", in page: " + token[1]);
+				tResp.setMessage("Did not find expected text <" + value + "> in page: " + token[1]);
 			}
 		}
 		return tResp;

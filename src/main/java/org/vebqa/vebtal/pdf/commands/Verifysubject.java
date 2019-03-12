@@ -17,8 +17,7 @@ public class Verifysubject extends AbstractCommand {
 
 	@Override
 	public Response executeImpl(Object aDocument) {
-
-		PDFDriver driver = (PDFDriver)aDocument;
+		PDFDriver driver = (PDFDriver) aDocument;
 		
 		Response tResp = new Response();
 
@@ -33,7 +32,7 @@ public class Verifysubject extends AbstractCommand {
 			tResp.setMessage("Successfully found subject: " + target);
 		} else {
 			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Expected subject: " + target + " but found: |" + driver.subject + "|");
+			tResp.setMessage("Expected subject: \"" + target + "\", but found: \"" + driver.subject + "\"");
 		}
 		return tResp;
 	}

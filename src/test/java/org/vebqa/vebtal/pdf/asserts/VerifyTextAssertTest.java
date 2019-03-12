@@ -1,12 +1,7 @@
 package org.vebqa.vebtal.pdf.asserts;
 
 import static org.hamcrest.core.StringStartsWith.startsWith;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -21,40 +16,39 @@ public class VerifyTextAssertTest {
 	public final PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum500.pdf");
 
 	@Test
-	public void findSomeTextSomewhere() {
+	public void findTextInPdf() {
 		VerifyTextAssert.assertThat(dut).hasText("Duis autem").check();
 	}
 
 	@Test
-	public void checkThatSomeTextIsNotAvailable() {
+	public void failFindingTextInPdf() {
 		thrown.expect(AssertionError.class);
 		thrown.expectMessage(startsWith("Expected text <Duis autem Entenhausen> not found in the content <"));
 
 		VerifyTextAssert.assertThat(dut).hasText("Duis autem Entenhausen").check();
 	}
-
+	
 	@Test
-	public void failWhileFileDoesNotExist() {
-		thrown.expect(AssertionError.class);
-		thrown.expectMessage("No document loaded!");
-
-		VerifyTextAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/FileNotExisting.pdf"))
-				.hasText("FindMe!").check();
+	public void findTextAtPage_1() {
+		VerifyTextAssert.assertThat(dut).hasText("Marker Page 1").atPage(1).check();
 	}
 
-	@Ignore
 	@Test
-	public void failWhileFileIsEmpty() {
+	public void findTextAtPage_2() {
+		VerifyTextAssert.assertThat(dut).hasText("Marker Page 2").atPage(2).check();
+	}
 
-		try {
-			VerifyTextAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/EmptyFile.pdf").load())
-					.hasText("FindMe!").check();
-			assertFalse("AssertionError expected.", true);
-		} catch (AssertionError e) {
-			assertTrue(e.getMessage() == "Expected text <FindMe!> not found in the content < \r\n>.");
-		} catch (IOException e) {
-			assertFalse("Got an IOException, but expected an AssertionError.", true);
-		}
+	@Test
+	public void findTextAtPage_3() {
+		VerifyTextAssert.assertThat(dut).hasText("Marker Page 3").atPage(3).check();
+	}
+
+	@Test
+	public void failFindingTextInPage() {
+		thrown.expect(AssertionError.class);
+		thrown.expectMessage(startsWith("Expected text <Marker Page 2> not found in the content <"));
+
+		VerifyTextAssert.assertThat(dut).hasText("Marker Page 2").atPage(1).check();
 	}
 
 }
