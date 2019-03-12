@@ -46,7 +46,6 @@ public class PDFDriver extends ExternalResource {
 	public boolean signed;
 	public String signerName;
 	public Calendar signatureTime;
-	public String fileName;
 
 	public PDFDriver() {
 		this.isLoaded = false;
@@ -86,7 +85,7 @@ public class PDFDriver extends ExternalResource {
 		try (InputStream inputStream = new ByteArrayInputStream(content)) {
 			this.document = PDDocument.load(inputStream);
 			this.text = new PDFTextStripper().getText(this.document);
-			this.fileName = this.getFilePath().substring(getFilePath().lastIndexOf("/") + 1);
+			this.pathToResource = name;
 			this.numberOfPages = this.document.getNumberOfPages();
 			this.author = this.document.getDocumentInformation().getAuthor();
 			this.creationDate = this.document.getDocumentInformation().getCreationDate();
@@ -105,7 +104,7 @@ public class PDFDriver extends ExternalResource {
 			throw new IllegalArgumentException("Invalid PDF file: " + name, e);
 		} catch (IOException e) {
 			logger.error("There was an error while processing the document!", e);
-			throw new IOException("Cannot load PDF: ", e);
+			throw new IOException("Cannot load PDF! ", e);
 		}
 	}
 

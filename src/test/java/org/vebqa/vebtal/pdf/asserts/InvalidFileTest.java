@@ -20,6 +20,7 @@ public class InvalidFileTest {
 		} catch (IOException e) {
 			assertTrue(true);
 		}
+		
 	}
 
 }
