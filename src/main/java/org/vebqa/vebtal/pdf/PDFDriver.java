@@ -104,7 +104,7 @@ public class PDFDriver extends ExternalResource {
 			throw new IllegalArgumentException("Invalid PDF file: " + name, e);
 		} catch (IOException e) {
 			logger.error("There was an error while processing the document!", e);
-			throw new IOException("Cannot load PDF: ", e);
+			throw new IOException("Cannot load PDF! ", e);
 		}
 	}
 
