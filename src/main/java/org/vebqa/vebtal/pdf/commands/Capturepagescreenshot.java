@@ -50,10 +50,14 @@ public class Capturepagescreenshot extends AbstractCommand {
 			pdf.close();
 		} catch (InvalidPasswordException e) {
 			logger.error("Password needed to load file!", e);
+			tResp.setCode(Response.FAILED);
+			tResp.setMessage("Password needed to load file: " + value);
+			return tResp;
 		} catch (IOException e) {
 			logger.error("Error while saving pdf page as image!", e);
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Could not write Image to file: " + value);
+			return tResp;
 		} finally {
 			try {
 				inputStream.close();

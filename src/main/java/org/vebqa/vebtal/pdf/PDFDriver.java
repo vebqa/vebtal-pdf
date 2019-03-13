@@ -23,7 +23,7 @@ public class PDFDriver extends ExternalResource {
 
 	private static final Logger logger = LoggerFactory.getLogger(PDFDriver.class);
 
-	private boolean isLoaded;
+	private boolean isSuccessfullyLoaded;
 
 	private String pathToResource;
 
@@ -47,7 +47,7 @@ public class PDFDriver extends ExternalResource {
 	public Calendar signatureTime;
 
 	public PDFDriver() {
-		this.isLoaded = false;
+		this.isSuccessfullyLoaded = false;
 		this.content = null;
 	}
 
@@ -55,7 +55,7 @@ public class PDFDriver extends ExternalResource {
 		return this.pathToResource;
 	}
 
-	public PDFDriver loadDocument(String aPathToDoc) {
+	public PDFDriver setFilePath(String aPathToDoc) {
 		this.pathToResource = aPathToDoc;
 		return this;
 	}
@@ -99,12 +99,13 @@ public class PDFDriver extends ExternalResource {
 			this.signed = signature != null;
 			this.signerName = signature == null ? null : signature.getName();
 			this.signatureTime = signature == null ? null : signature.getSignDate();
+			this.isSuccessfullyLoaded = true;
 		} catch (IllegalArgumentException e) {
 			logger.error("Invalid PDF file: {}", name);
 			throw new IllegalArgumentException("Invalid PDF file: " + name, e);
 		} catch (IOException e) {
 			logger.error("There was an error while processing the document!", e);
-			throw new IOException("Cannot load PDF: ", e);
+			throw new IOException("Cannot load PDF!");
 		}
 	}
 
@@ -113,12 +114,13 @@ public class PDFDriver extends ExternalResource {
 	}
 
 	public boolean isLoaded() {
-		return this.isLoaded;
+		return this.isSuccessfullyLoaded;
 	}
 
 	public void close() throws IOException {
 		if (this.document != null) {
 			this.document.close();
+			this.isSuccessfullyLoaded = false;
 		} else {
 			logger.warn("Cannot close document because it is not existing.");
 		}

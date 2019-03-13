@@ -23,7 +23,6 @@ public class Validate extends AbstractCommand {
 
 	@Override
 	public Response executeImpl(Object driver) {
-
 		ValidationResult result = null;
 		
 		try {
@@ -32,7 +31,6 @@ public class Validate extends AbstractCommand {
 			PreflightDocument doc = parser.getPreflightDocument();
 			result = doc.getResult();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

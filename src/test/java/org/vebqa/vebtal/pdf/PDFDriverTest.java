@@ -1,35 +1,46 @@
 package org.vebqa.vebtal.pdf;
 
-import org.junit.Ignore;
-import org.junit.Rule;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+import java.nio.file.NoSuchFileException;
+
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.vebqa.vebtal.pdf.asserts.VerifyTextAssert;
-import org.vebqa.vebtal.pdf.asserts.VerifyTextByAreaAssert;
 
 public class PDFDriverTest {
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
-
-	@Ignore
 	@Test
-	public void failWhileFileNotFound() {
-		thrown.expect(AssertionError.class);
-		thrown.expectMessage("No document loaded!");
-
-		VerifyTextAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/FileNotExisting.pdf"))
-				.hasText("FindMe!").check();
+	public void loadNonExistingFile() {
+		try {
+			new PDFDriver().setFilePath("./src/test/java/resource/FileNotExisting.pdf").load();
+		} catch (NoSuchFileException nsfe) {
+			assertTrue(true);
+		} catch (Exception e) {
+			assertFalse("Expected NoSuchFileException!", true);
+		}
 	}
 
-	@Ignore
 	@Test
-	public void failToOpenInvalidFile() {
-		thrown.expect(AssertionError.class);
-		thrown.expectMessage("No document loaded!");
-		
-		VerifyTextByAreaAssert.assertThat(new PDFDriver().loadDocument("./src/test/java/resource/InvalidFile.pdf"))
-				.hasText("FindMe!").atPage(1).inArea(390, 220, 25, 15).check();
+	public void loadInvalidFile() {
+		try {
+			new PDFDriver().setFilePath("./src/test/java/resource/InvalidFile.pdf").load();
+		} catch (IOException ioe) {
+			assertTrue(ioe.getMessage().equals("Cannot load PDF!"));
+		} catch (Exception e) {
+			assertFalse("Expected IOException!", true);
+		}
+	}
+
+	@Test
+	public void loadFileWithPassword() {
+		try {
+			new PDFDriver().setFilePath("./src/test/java/resource/ProtectedWithPassword.pdf").load();
+		} catch (IOException ioe) {
+			assertTrue(ioe.getMessage().equals("Cannot load PDF!"));
+		} catch (Exception e) {
+			assertFalse("Expected IOException!", true);
+		}
 	}
 
 }

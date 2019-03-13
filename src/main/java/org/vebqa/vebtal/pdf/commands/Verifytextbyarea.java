@@ -40,7 +40,7 @@ public class Verifytextbyarea extends AbstractCommand {
 
 		Response tResp = new Response();
 
-		if (target == null || target.contentEquals("")) {
+		if (target == null || target.contentEquals("") || value == null || value.contentEquals("")) {
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Command needs target and value data to work!");
 		} else {
@@ -49,7 +49,7 @@ public class Verifytextbyarea extends AbstractCommand {
 			try {
 				area = new Area(target);
 			} catch (Exception e) {
-				tResp.setCode("1");
+				tResp.setCode(Response.FAILED);
 				tResp.setMessage("Could not create area definition!");
 				return tResp;
 			}
@@ -67,7 +67,7 @@ public class Verifytextbyarea extends AbstractCommand {
 				PDPage page = pdf.getPage(area.getPage());
 				textStripper.extractRegions(page);
 				areaText = textStripper.getTextForRegion("test");
-				logger.info("extracted text from area: {}", areaText);
+				logger.info("Extracted text from area: {}", areaText);
 			} catch (IOException e) {
 				tResp.setCode(Response.FAILED);
 				tResp.setMessage("Cannot handle pdf source: " + e.getMessage());
@@ -85,7 +85,7 @@ public class Verifytextbyarea extends AbstractCommand {
 				logger.info("CV Line Breaks: {}", areaText);
 				if (StringUtils.contains(areaText, this.value)) {
 					tResp.setCode(Response.PASSED);
-					tResp.setMessage("Text found in area text.");
+					tResp.setMessage("Text found in given area.");
 				} else {
 					tResp.setCode(Response.FAILED);
 					tResp.setMessage("Could not find text in area! Result is: " + areaText);

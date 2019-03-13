@@ -8,66 +8,66 @@ import org.junit.Test;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PDFDriver;
 
-public class VerifytextTest {
+public class VerifytextbyareaTest {
 
 	@Rule
-	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum_3Pages.pdf");
+	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/Testtext_Area.pdf");
 
 	@Test
-	public void verifyTextWithPageNo() {
+	public void verifyTextByArea() {
 		// create command to test
-		Verifytext cmd = new Verifytext("verifyText", "page=1", "Marker Page 1");
+		Verifytextbyarea cmd = new Verifytextbyarea("verifyTextByArea", "page=1;x=350;y=220;height=20;width=65", "This is a text.");
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
 		Response resultCheck = new Response();
 		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Expected text <Marker Page 1> found in page: 1");
+		resultCheck.setMessage("Text found in given area.");
 
 		// check
 		assertThat(resultCheck, samePropertyValuesAs(result));
 	}
-
+	
 	@Test
-	public void verifyTextWithoutPageNo() {
+	public void verifyTextByAreaFailWithMismatch() {
 		// create command to test
-		Verifytext cmd = new Verifytext("verifyText", "", "Marker Page 2");
-		Response result = cmd.executeImpl(dut);
-
-		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully found text: Marker Page 2");
-
-		// check
-		assertThat(resultCheck, samePropertyValuesAs(result));
-	}
-
-	@Test
-	public void verifyTextNotFoundWithPageNo() {
-		// create command to test
-		Verifytext cmd = new Verifytext("verifyText", "page=2", "Marker Page 1");
+		Verifytextbyarea cmd = new Verifytextbyarea("verifyTextByArea", "page=1;x=350;y=220;height=65;width=20", "This is a text.");
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
 		Response resultCheck = new Response();
 		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Did not find expected text <Marker Page 1> in page: 2");
+		resultCheck.setMessage("Could not find text in area! Result is: This\\r\\n");
 
 		// check
 		assertThat(resultCheck, samePropertyValuesAs(result));
 	}
-
+	
 	@Test
-	public void verifyTextNotFoundWithoutPageNo() {
+	public void verifyTextByAreaFailWhileValueIsNull() {
 		// create command to test
-		Verifytext cmd = new Verifytext("verifyText", "", "You can't find me!");
+		Verifytextbyarea cmd = new Verifytextbyarea("verifyTextByArea", "page=1;x=350;y=220;height=20;width=65", "");
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
 		Response resultCheck = new Response();
 		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Cannot find text: You can't find me!");
+		resultCheck.setMessage("Command needs target and value data to work!");
+
+		// check
+		assertThat(resultCheck, samePropertyValuesAs(result));
+	}
+	
+	@Test
+	public void verifyTextByAreaFailWhileTargetIsNull() {
+		// create command to test
+		Verifytextbyarea cmd = new Verifytextbyarea("verifyTextByArea", "", "This is a text.");
+		Response result = cmd.executeImpl(dut);
+
+		// create a green result object
+		Response resultCheck = new Response();
+		resultCheck.setCode(Response.FAILED);
+		resultCheck.setMessage("Command needs target and value data to work!");
 
 		// check
 		assertThat(resultCheck, samePropertyValuesAs(result));

@@ -13,7 +13,7 @@ public class VerifyTextAssertTest {
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Rule
-	public final PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum500.pdf");
+	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum_3Pages.pdf");
 
 	@Test
 	public void findTextInPdf() {

@@ -68,12 +68,17 @@ public class Extractimages extends AbstractCommand {
 						}
 					}
 				}
+				if (i == 0) {
+					tResp.setCode(Response.PASSED);
+					tResp.setMessage("No images found in page: "+ pageToExtact);
+					return tResp;
+				}
 			}
 		} catch (IOException e) {
 			logger.error("Error while stripping text from pdf document!", e);
 		}
 		tResp.setCode(Response.PASSED);
-		tResp.setMessage("Successfully extracted " + i + " images from page: " + pageToExtact);
+		tResp.setMessage("Successfully extracted " + i + " image(s) from page: " + pageToExtact);
 		return tResp;
 	}
 }

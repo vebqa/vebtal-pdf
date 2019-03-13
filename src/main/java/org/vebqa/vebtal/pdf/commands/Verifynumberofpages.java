@@ -24,10 +24,10 @@ public class Verifynumberofpages extends AbstractCommand {
 
 		if (driver.numberOfPages == Integer.parseInt(target)) {
 			tResp.setCode(Response.PASSED);
-			tResp.setMessage("Document has expected amount of pages: " + target);
+			tResp.setMessage("Document has expected number of pages: " + target);
 		} else {
 			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Expected amount of pages: " + target + " but found: " + driver.numberOfPages);
+			tResp.setMessage("Expected number of pages: <" + target + ">, but found: <" + driver.numberOfPages + ">");
 		}
 		return tResp;
 	}

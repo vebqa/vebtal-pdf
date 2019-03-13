@@ -11,10 +11,10 @@ import org.vebqa.vebtal.pdf.PDFDriver;
 public class VerifyauthorTest {
 
 	@Rule
-	public final PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum_3Pages.pdf");
+	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum_3Pages.pdf");
 
 	@Rule
-	public final PDFDriver dut_na = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum500.pdf");
+	public final PDFDriver dut_na = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum500.pdf");
 
 	@Test
 	public void verifyAuthor() {

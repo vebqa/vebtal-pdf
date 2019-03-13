@@ -11,7 +11,7 @@ import org.vebqa.vebtal.pdf.PDFDriver;
 public class CloseTest {
 
 	@Rule
-	public final PDFDriver dut = new PDFDriver().loadDocument("./src/test/java/resource/LoremIpsum_3Pages.pdf");
+	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum_3Pages.pdf");
 
 	@Test
 	public void closePdfFile() {
