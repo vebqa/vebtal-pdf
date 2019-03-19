@@ -31,7 +31,6 @@ public class Showformfields extends AbstractCommand {
 		
 		try {
 			String output = printFields(pdfDriver.getDocument());
-			System.out.println("OUTPUT: " + output);
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage(output);
 		} catch (IOException e) {

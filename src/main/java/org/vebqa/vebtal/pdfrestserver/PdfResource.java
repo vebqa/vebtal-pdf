@@ -71,7 +71,7 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 		if (result.getCode() != Response.PASSED) {
 			PdfTestAdaptionPlugin.setLatestResult(false, result.getMessage());
 		} else {
-			PdfTestAdaptionPlugin.setLatestResult(true, "ok");
+			PdfTestAdaptionPlugin.setLatestResult(true, result.getMessage());
 		}
 		if (PDFStore.getStore().getDriver().isLoaded()) {
 			GuiManager.getinstance().setTabStatus(PdfTestAdaptionPlugin.ID, SutStatus.CONNECTED);
