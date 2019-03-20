@@ -10,9 +10,16 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Calendar;
+import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
+import org.apache.pdfbox.pdmodel.interactive.action.PDActionJavaScript;
+import org.apache.pdfbox.pdmodel.interactive.action.PDFormFieldAdditionalActions;
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
+import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
+import org.apache.pdfbox.pdmodel.interactive.form.PDField;
+import org.apache.pdfbox.pdmodel.interactive.form.PDPushButton;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.hamcrest.Matcher;
 import org.junit.rules.ExternalResource;
@@ -152,6 +159,46 @@ public class PDFDriver extends ExternalResource {
 		return this.content;
 	}
 
+	public String getValueByFieldName(String aName) {
+		PDDocumentCatalog docCatalog = this.document.getDocumentCatalog();
+		PDAcroForm acroForm = docCatalog.getAcroForm();
+		List<PDField> fields = acroForm.getFields();
+		for (PDField field : fields) {
+			if (field.getPartialName().contentEquals(aName)) {
+				logger.info("Field found: " + aName);
+				PDFormFieldAdditionalActions actions = field.getActions();
+				PDActionJavaScript js = (PDActionJavaScript)actions.getV();
+				
+				logger.info("V-Action: " + 	js.getAction());
+				return field.getValueAsString();
+			}
+		}
+		return null;
+	}
+
+	
+	public boolean setValueByFieldName(String aName, String aValue) {
+		PDDocumentCatalog docCatalog = this.document.getDocumentCatalog();
+		PDAcroForm acroForm = docCatalog.getAcroForm();
+		List<PDField> fields = acroForm.getFields();
+		for (PDField field : fields) {
+			if (field.getPartialName().contentEquals(aName)) {
+				logger.info("Field found: " + aName);
+				try {
+					field.setValue(aValue);
+				} catch (IOException e) {
+					logger.error("cannot write to field: " + aName, e);
+					return false;
+				}
+				return true;
+			} else {
+				logger.info("Field not matching: " + field.getPartialName());
+			}
+		}
+		return false;
+	}
+	
+	
 	/**
 	 * initialize resource before testcase.
 	 */
