@@ -20,10 +20,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
@@ -103,6 +106,21 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
             }
         });
  
+		addCommand.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+			if (!newValue) {
+				if (!KeywordFinder.getinstance().isKeywordExisting(getAdaptionID(), addCommand.getText())) {
+					addCommand.setBackground(
+							new Background(new BackgroundFill(Color.ORANGERED, CornerRadii.EMPTY, Insets.EMPTY)));
+					addButton.setDisable(true);
+				} else {
+					addCommand.setBackground(
+							new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+					addButton.setDisable(false);
+				}
+			}
+
+		});
+		
         HBox hbox = new HBox();
         
         hbox.getChildren().addAll(txtGeneration, addCommand, addTarget, addValue, addButton);

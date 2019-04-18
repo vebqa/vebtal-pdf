@@ -7,12 +7,12 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyFieldEmpty", hintTarget = "name=<partial name>")
-public class Verifyfieldempty extends AbstractCommand {
+@Keyword(module = PdfTestAdaptionPlugin.ID, command = "storeFieldAction", hintTarget = "name=<partial name>", hintValue = "<buffer>")
+public class Storefieldaction extends AbstractCommand {
 	
-	public Verifyfieldempty(String aCommand, String aTarget, String aValue) {
+	public Storefieldaction(String aCommand, String aTarget, String aValue) {
 		super(aCommand, aTarget, aValue);
-		this.type = CommandType.ASSERTION;
+		this.type = CommandType.ACCESSOR;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class Verifyfieldempty extends AbstractCommand {
 		String name = "";
 		String qualified = "";
 		
-		String[] parts = target.split(";");
+		String[] parts = this.target.split(";");
 		for (String part : parts) {
 			String[] subParts = part.split("=");
 			switch (subParts[0]) {
@@ -40,16 +40,17 @@ public class Verifyfieldempty extends AbstractCommand {
 			}
 		}		
 		
-		String value = pdfDriver.getValueByFieldName(name);
-		if (value == null || value.contentEquals("")) {
+		String tValue = pdfDriver.getActionByFieldName(name);
+		if (tValue != null && !tValue.contentEquals("")) {
 			tResp.setCode(Response.PASSED);
-			tResp.setMessage("value of field is empty");
+			tResp.setMessage(tValue);
+			tResp.setStoredKey(this.value);
+			tResp.setStoredValue(tValue);
 		} else {
 			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Field should be empty, but is: " + value);
+			tResp.setMessage("Field has no action");
 		}
 		
 		return tResp;
 	}
-
 }

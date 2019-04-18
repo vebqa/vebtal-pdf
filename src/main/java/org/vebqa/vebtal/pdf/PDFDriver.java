@@ -19,7 +19,6 @@ import org.apache.pdfbox.pdmodel.interactive.action.PDFormFieldAdditionalActions
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
-import org.apache.pdfbox.pdmodel.interactive.form.PDPushButton;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.hamcrest.Matcher;
 import org.junit.rules.ExternalResource;
@@ -28,6 +27,10 @@ import org.slf4j.LoggerFactory;
 
 public class PDFDriver extends ExternalResource {
 
+	private static final String ACTION_VALIDATE = "validate";
+	private static final String ACTION_CALCULATE = "calculate";
+	
+	
 	private static final Logger logger = LoggerFactory.getLogger(PDFDriver.class);
 
 	private boolean isSuccessfullyLoaded;
@@ -165,18 +168,30 @@ public class PDFDriver extends ExternalResource {
 		List<PDField> fields = acroForm.getFields();
 		for (PDField field : fields) {
 			if (field.getPartialName().contentEquals(aName)) {
-				logger.info("Field found: " + aName);
 				PDFormFieldAdditionalActions actions = field.getActions();
-				PDActionJavaScript js = (PDActionJavaScript)actions.getV();
-				
-				logger.info("V-Action: " + 	js.getAction());
+				PDActionJavaScript js = (PDActionJavaScript) actions.getV();
 				return field.getValueAsString();
 			}
 		}
 		return null;
 	}
 
-	
+	public String getActionByFieldName(String aName) {
+		PDDocumentCatalog docCatalog = this.document.getDocumentCatalog();
+		PDAcroForm acroForm = docCatalog.getAcroForm();
+		List<PDField> fields = acroForm.getFields();
+		for (PDField field : fields) {
+			if (field.getPartialName().contentEquals(aName)) {
+				PDFormFieldAdditionalActions actions = field.getActions();
+				if ((actions != null) && (actions.getV() != null)) {
+					PDActionJavaScript js = (PDActionJavaScript) actions.getV();
+					return js.getAction();
+				}
+			}
+		}
+		return null;
+	}
+
 	public boolean setValueByFieldName(String aName, String aValue) {
 		PDDocumentCatalog docCatalog = this.document.getDocumentCatalog();
 		PDAcroForm acroForm = docCatalog.getAcroForm();
@@ -197,8 +212,7 @@ public class PDFDriver extends ExternalResource {
 		}
 		return false;
 	}
-	
-	
+
 	/**
 	 * initialize resource before testcase.
 	 */
@@ -218,5 +232,5 @@ public class PDFDriver extends ExternalResource {
 			logger.error("Could not close pdf file.", e);
 		}
 	}
-	
+
 }
