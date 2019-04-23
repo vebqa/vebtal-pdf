@@ -1,0 +1,140 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+	<properties>
+		<title>VEBTAL PDF - Test Adaption Layer</title>
+		<author email="kdoerges@googlemail.com">Karsten Doerges</author>
+	</properties>
+	<body>
+		<release version="0.9.16" date="2019-04.21"
+			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				showFormFields will show
+				availability of action scripts for each field
+			</action>
+		</release>
+		<release version="0.9.15" date="2019-03.19"
+			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				lazy loading of pdf resource
+			</action>
+		</release>
+
+		<release version="0.9.14" date="2019-03.01"
+			description="bugfixes">
+		</release>
+
+		<release version="0.9.13" date="2019-02.08"
+			description="bugfixes">
+		</release>
+
+		<release version="0.9.12" date="2019-01.30"
+			description="bugfixes">
+		</release>
+
+		<release version="0.9.11" date="2019-01.20"
+			description="bugfixes">
+		</release>
+
+		<release version="0.9.10" date="2019-01.10"
+			description="bugfixes">
+		</release>
+
+		<release version="0.9.9" date="2019-01.10"
+			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				refactor build process, include
+				modulname
+			</action>
+		</release>
+
+		<release version="0.9.8" date="2019-01.06"
+			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				update dependency veptal-api
+			</action>
+		</release>
+
+		<release version="0.9.7" date="2019-01.03"
+			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				refactor build process to parent
+			</action>
+		</release>
+
+		<release version="0.9.6" date="2018-12.27"
+			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				+ update pdfbox 2.13.0
+			</action>
+		</release>
+
+		<release version="0.9.5" date="2018-11.14"
+			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				+ update pdfbox 2.12.0
+				+ update
+				assertj-core 3.11.1
+				+ implement type for commands
+			</action>
+		</release>
+
+		<release version="0.9.4" date="2018-11.12"
+			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				+ new user config override system
+				+ update pdfbox 2.11.0
+			</action>
+		</release>
+
+		<release version="0.9.3" date="2018-07.31"
+			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				+ refactor tab handling
+				+ implement
+				sut status
+				+ implement config loader
+			</action>
+		</release>
+
+		<release version="0.9.2" date="2018-07.04"
+			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				+ save start and stop time for
+				keywords
+				+ remove unused code
+			</action>
+		</release>
+
+		<release version="0.9.1" date="2018-06.19"
+			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				use of TestAdaptionResource
+				interface
+			</action>
+			<action dev="kdoerges" type="add">
+				refactored JUnit PDFResource
+			</action>
+			<action dev="kdoerges" type="add">
+				added new MetaData tests
+			</action>
+
+			<action dev="kdoerges" type="fix">
+				verifytextbyarea: search text in
+				area can have line break
+			</action>
+			<action dev="kdoerges" type="add">
+				lots of junit test cases
+			</action>
+			<action dev="kdoerges" type="add">
+				new asserts: VerifyMetaDataAssert,
+				VerifyTextByAreaAssert, VerifyTextAssert
+			</action>
+			<action dev="kdoerges" type="add">
+				new keyword VerifyTextByArea
+			</action>
+
+		</release>
+
+	</body>
+</document>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
+import org.apache.pdfbox.pdmodel.interactive.action.PDActionJavaScript;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDNonTerminalField;
@@ -17,7 +18,7 @@ import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, command = "showFormFields")
 public class Showformfields extends AbstractCommand {
-	
+
 	public Showformfields(String aCommand, String aTarget, String aValue) {
 		super(aCommand, aTarget, aValue);
 		this.type = CommandType.ACTION;
@@ -25,12 +26,12 @@ public class Showformfields extends AbstractCommand {
 
 	@Override
 	public Response executeImpl(Object driver) {
-		PDFDriver pdfDriver = (PDFDriver)driver;
+		PDFDriver pdfDriver = (PDFDriver) driver;
 
 		Response tResp = new Response();
-		
+
 		try {
-			String output = printFields(pdfDriver.getDocument());
+			String output = getFieldsInformation(pdfDriver.getDocument());
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage(output);
 		} catch (IOException e) {
@@ -41,8 +42,8 @@ public class Showformfields extends AbstractCommand {
 		return tResp;
 	}
 
-	public String printFields(PDDocument pdfDocument) throws IOException {
-		
+	public String getFieldsInformation(PDDocument pdfDocument) throws IOException {
+
 		PDDocumentCatalog docCatalog = pdfDocument.getDocumentCatalog();
 		PDAcroForm acroForm = docCatalog.getAcroForm();
 		List<PDField> fields = acroForm.getFields();
@@ -56,9 +57,9 @@ public class Showformfields extends AbstractCommand {
 	}
 
 	private String processField(PDField field, String sLevel, String sParent) throws IOException {
-		
+
 		String output = "";
-		
+
 		String partialName = field.getPartialName();
 
 		if (field instanceof PDNonTerminalField) {
@@ -70,6 +71,7 @@ public class Showformfields extends AbstractCommand {
 			output = sLevel + sParent;
 
 			for (PDField child : ((PDNonTerminalField) field).getChildren()) {
+				// there are more subs, so go deeper
 				processField(child, "|  " + sLevel, sParent);
 			}
 		} else {
@@ -79,11 +81,61 @@ public class Showformfields extends AbstractCommand {
 			if (partialName != null) {
 				outputString.append(".").append(partialName);
 			}
-			outputString.append(" = ").append(fieldValue);
-			outputString.append(",  type=").append(field.getClass().getName());
+			outputString.append("|").append(fieldValue);
+			outputString.append(",  type=").append(field.getClass().getSimpleName());
+
+			// get available script information
+			if (field.getActions() == null) {
+				outputString.append(", No actions");
+			} else {
+				outputString.append(", C:");
+				if (field.getActions().getC() != null) {
+					PDActionJavaScript js = (PDActionJavaScript) field.getActions().getC();
+					if (js != null) {
+						outputString.append("+");
+					} else {
+						outputString.append("-");
+					}
+				} else {
+					outputString.append("-");
+				}
+				outputString.append("|F:");
+				if (field.getActions().getF() != null) {
+					PDActionJavaScript js = (PDActionJavaScript) field.getActions().getF();
+					if (js != null) {
+						outputString.append("+");
+					} else {
+						outputString.append("-");
+					}
+				} else {
+					outputString.append("-");
+				}
+				outputString.append("|K:");
+				if (field.getActions().getK() != null) {
+					PDActionJavaScript js = (PDActionJavaScript) field.getActions().getK();
+					if (js != null) {
+						outputString.append("+");
+					} else {
+						outputString.append("-");
+					}
+				} else {
+					outputString.append("-");
+				}
+				outputString.append("|V:");
+				if (field.getActions().getV() != null) {
+					PDActionJavaScript js = (PDActionJavaScript) field.getActions().getV();
+					if (js != null) {
+						outputString.append("+");
+					} else {
+						outputString.append("-");
+					}
+				} else {
+					outputString.append("-");
+				}
+			}
 			output = output + outputString;
 		}
-		
+
 		return output;
 	}
 }
