@@ -9,7 +9,7 @@
 		<release version="0.9.16" date="2019-04.21"
 			description="bugfixes">
 			<action dev="kdoerges" type="add">
-				showFormFields will show
+				+ showFormFields will show
 				availability of action scripts for each field
 			</action>
 		</release>
@@ -22,22 +22,44 @@
 
 		<release version="0.9.14" date="2019-03.01"
 			description="bugfixes">
+			<action dev="kdoerges" type="add">
+			+ refactor to document driver: PDFDriver
+			+ fix status icon in tab
+			+ update dependencies
+			</action>
 		</release>
 
 		<release version="0.9.13" date="2019-02.08"
 			description="bugfixes">
+			<action dev="kdoerges" type="add">
+			+ use const instead of hardcoded return codes
+			+ add autocompletion
+			+ add annotation to keyword implementation classes
+			+ section for test generation
+			</action>
 		</release>
 
 		<release version="0.9.12" date="2019-01.30"
 			description="bugfixes">
+			<action dev="kdoerges" type="add">
+			+ implement new keyword: extractImages
+			+ new keywords verifyCreationDate, Validate
+			</action>
 		</release>
 
 		<release version="0.9.11" date="2019-01.20"
 			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				+ catch InvalidPasswordException while loading pdf
+				+ refactored response code
+			</action>
 		</release>
 
 		<release version="0.9.10" date="2019-01.10"
 			description="bugfixes">
+			<action dev="kdoerges" type="add">
+				repackaged
+			</action>
 		</release>
 
 		<release version="0.9.9" date="2019-01.10"
