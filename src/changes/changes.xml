@@ -7,63 +7,100 @@
 	</properties>
 	<body>
 		<release version="0.9.16" date="2019-04.21"
-			description="bugfixes">
+			description="introduce new keywords to verify form fields">
 			<action dev="kdoerges" type="add">
-				+ showFormFields will show
+				showFormFields will show
 				availability of action scripts for each field
+			</action>
+			<action dev="kdoerges" type="add">
+				new keyword verifyFieldScript: verify that a field has the expected additional action script attached
+			</action>
+			<action dev="kdoerges" type="add">
+				new keyword storeFieldAction: extract the script and send it back to the calling system
+			</action>			
+			<action dev="kdoerges" type="update">
+				update pdfbox 2.0.15
 			</action>
 		</release>
 		<release version="0.9.15" date="2019-03.19"
-			description="bugfixes">
+			description="refactor loading of resources">
 			<action dev="kdoerges" type="add">
 				lazy loading of pdf resource
 			</action>
+			<action dev="kdoerges" type="update">
+				update vebtal-api
+			</action>
+			<action dev="nitfeu" type="add">
+				add junits
+			</action>						
 		</release>
 
 		<release version="0.9.14" date="2019-03.01"
-			description="bugfixes">
-			<action dev="kdoerges" type="add">
-			+ refactor to document driver: PDFDriver
-			+ fix status icon in tab
-			+ update dependencies
+			description="refactoring and updating dependencies">
+			<action dev="kdoerges" type="fix">
+				refactor to document driver: PDFDriver
 			</action>
+			<action dev="kdoerges" type="fix">
+				fix status icon in tab
+			</action>
+			<action dev="kdoerges" type="update">
+				update dependencies
+			</action>
+			<action dev="kdoerges" type="update">
+				update vebtal-api
+			</action>			
 		</release>
 
 		<release version="0.9.13" date="2019-02.08"
-			description="bugfixes">
+			description="introduce auto completion and new section for test generation">
 			<action dev="kdoerges" type="add">
-			+ use const instead of hardcoded return codes
-			+ add autocompletion
-			+ add annotation to keyword implementation classes
-			+ section for test generation
+				use const instead of hardcoded
+				return codes
+			</action>
+			<action dev="kdoerges" type="add">
+				add autocompletion
+			</action>
+			<action dev="kdoerges" type="add">
+				add annotation to keyword
+				implementation classes
+			</action>
+			<action dev="kdoerges" type="add">
+				section for test generation
 			</action>
 		</release>
 
 		<release version="0.9.12" date="2019-01.30"
-			description="bugfixes">
+			description="provide new keywords and validate test object">
 			<action dev="kdoerges" type="add">
-			+ implement new keyword: extractImages
-			+ new keywords verifyCreationDate, Validate
+				implement new keyword
+				extractImages
+			</action>
+			<action dev="kdoerges" type="add">
+				new keywords verifyCreationDate,
+				Validate
 			</action>
 		</release>
 
 		<release version="0.9.11" date="2019-01.20"
-			description="bugfixes">
-			<action dev="kdoerges" type="add">
-				+ catch InvalidPasswordException while loading pdf
-				+ refactored response code
+			description="refactoring and bugfixing">
+			<action dev="kdoerges" type="fix">
+				catch InvalidPasswordException
+				while loading pdf
+			</action>
+			<action dev="kdoerges" type="fix">
+				refactored response code
 			</action>
 		</release>
 
 		<release version="0.9.10" date="2019-01.10"
 			description="bugfixes">
-			<action dev="kdoerges" type="add">
+			<action dev="kdoerges" type="update">
 				repackaged
 			</action>
 		</release>
 
 		<release version="0.9.9" date="2019-01.10"
-			description="bugfixes">
+			description="strengthen build process">
 			<action dev="kdoerges" type="add">
 				refactor build process, include
 				modulname
@@ -71,65 +108,75 @@
 		</release>
 
 		<release version="0.9.8" date="2019-01.06"
-			description="bugfixes">
-			<action dev="kdoerges" type="add">
+			description="new internal api system">
+			<action dev="kdoerges" type="update">
 				update dependency veptal-api
 			</action>
 		</release>
 
 		<release version="0.9.7" date="2019-01.03"
-			description="bugfixes">
+			description="refactoring internal build process">
 			<action dev="kdoerges" type="add">
 				refactor build process to parent
 			</action>
 		</release>
 
 		<release version="0.9.6" date="2018-12.27"
-			description="bugfixes">
-			<action dev="kdoerges" type="add">
-				+ update pdfbox 2.13.0
+			description="update dependencies">
+			<action dev="kdoerges" type="update">
+				update pdfbox 2.13.0
 			</action>
 		</release>
 
 		<release version="0.9.5" date="2018-11.14"
-			description="bugfixes">
+			description="refactoring release">
+			<action dev="kdoerges" type="update">
+				update pdfbox 2.12.0
+			</action>
+			<action dev="kdoerges" type="update">
+				update assertj-core 3.11.1
+			</action>
 			<action dev="kdoerges" type="add">
-				+ update pdfbox 2.12.0
-				+ update
-				assertj-core 3.11.1
-				+ implement type for commands
+				implement type for commands
 			</action>
 		</release>
 
 		<release version="0.9.4" date="2018-11.12"
-			description="bugfixes">
+			description="use new config system">
 			<action dev="kdoerges" type="add">
-				+ new user config override system
-				+ update pdfbox 2.11.0
+				new user config override system
+			</action>
+			<action dev="kdoerges" type="add">
+				update pdfbox 2.11.0
 			</action>
 		</release>
 
 		<release version="0.9.3" date="2018-07.31"
-			description="bugfixes">
+			description="refactoring release">
+			<action dev="kdoerges" type="fix">
+				refactor tab handling
+			</action>
 			<action dev="kdoerges" type="add">
-				+ refactor tab handling
-				+ implement
-				sut status
-				+ implement config loader
+				implement sut status
+			</action>
+			<action dev="kdoerges" type="add">
+				implement config loader
 			</action>
 		</release>
 
 		<release version="0.9.2" date="2018-07.04"
-			description="bugfixes">
+			description="clean up">
 			<action dev="kdoerges" type="add">
-				+ save start and stop time for
+				save start and stop time for
 				keywords
-				+ remove unused code
+			</action>
+			<action dev="kdoerges" type="remove">
+				remove unused code
 			</action>
 		</release>
 
 		<release version="0.9.1" date="2018-06.19"
-			description="bugfixes">
+			description="refactoring and new internal tests">
 			<action dev="kdoerges" type="add">
 				use of TestAdaptionResource
 				interface

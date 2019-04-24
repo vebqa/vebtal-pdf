@@ -27,9 +27,10 @@ import org.slf4j.LoggerFactory;
 
 public class PDFDriver extends ExternalResource {
 
-	private static final String ACTION_VALIDATE = "validate";
-	private static final String ACTION_CALCULATE = "calculate";
-	
+	public static final String ACTION_VALIDATE = "validate";
+	public static final String ACTION_CALCULATE = "calculate";
+	public static final String ACTION_FORMAT = "format";
+	public static final String ACTION_KEYSTROKE = "keystroke";
 	
 	private static final Logger logger = LoggerFactory.getLogger(PDFDriver.class);
 
@@ -192,6 +193,48 @@ public class PDFDriver extends ExternalResource {
 		return null;
 	}
 
+	/**
+	 * Returns true if a field has the expected additional action.
+	 * 
+	 * @param aName 	field name
+	 * @param anAction	specified additional action, e.g. validate, calculate, keystroke, format
+	 * @return			true, if expected additional action was found
+	 */
+	public boolean hasAdditionalActionByFieldName(String aName, String anAction) {
+		PDDocumentCatalog docCatalog = this.document.getDocumentCatalog();
+		PDAcroForm acroForm = docCatalog.getAcroForm();
+		List<PDField> fields = acroForm.getFields();
+		for (PDField field : fields) {
+			if (field.getPartialName().contentEquals(aName)) {
+				PDFormFieldAdditionalActions actions = field.getActions();
+				// there is no action attached
+				if (actions == null) {
+					return false;
+				}
+				
+				if ((actions.getV() != null) && anAction.contentEquals(PDFDriver.ACTION_VALIDATE)) {
+					return true;
+				}
+				if ((actions.getC() != null) && anAction.contentEquals(PDFDriver.ACTION_CALCULATE)) {
+					return true;
+				}
+				if ((actions.getF() != null) && anAction.contentEquals(PDFDriver.ACTION_FORMAT)) {
+					return true;
+				}
+				if ((actions.getK() != null) && anAction.contentEquals(PDFDriver.ACTION_KEYSTROKE)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}	
+	
+	/**
+	 * 
+	 * @param aName		field name
+	 * @param aValue	expected value
+	 * @return			true, if field contains the expected value 
+	 */
 	public boolean setValueByFieldName(String aName, String aValue) {
 		PDDocumentCatalog docCatalog = this.document.getDocumentCatalog();
 		PDAcroForm acroForm = docCatalog.getAcroForm();
@@ -232,5 +275,4 @@ public class PDFDriver extends ExternalResource {
 			logger.error("Could not close pdf file.", e);
 		}
 	}
-
 }
