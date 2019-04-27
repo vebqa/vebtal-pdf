@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -35,6 +36,7 @@ public class ExtractimagesTest {
 	// file
 	File file = new File("Z:\\extracted-image-1.png");
 
+	@Ignore
 	@Test
 	public void extractImages() {
 		// create command to test
