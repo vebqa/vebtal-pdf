@@ -22,7 +22,6 @@ public class Verifyfieldempty extends AbstractCommand {
 		Response tResp = new Response();
 		
 		String name = "";
-		String qualified = "";
 		
 		String[] parts = target.split(";");
 		for (String part : parts) {
@@ -31,10 +30,6 @@ public class Verifyfieldempty extends AbstractCommand {
 			case "name":
 				name = subParts[1];
 				break;
-			case "qualified":
-				qualified = subParts[1];
-				break;
-
 			default:
 				break;
 			}

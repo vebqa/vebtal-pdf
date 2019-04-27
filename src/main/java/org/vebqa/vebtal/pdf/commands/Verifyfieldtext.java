@@ -22,7 +22,6 @@ public class Verifyfieldtext extends AbstractCommand {
 		Response tResp = new Response();
 		
 		String name = "";
-		String qualified = "";
 		
 		String[] parts = this.target.split(";");
 		for (String part : parts) {
@@ -31,10 +30,6 @@ public class Verifyfieldtext extends AbstractCommand {
 			case "name":
 				name = subParts[1];
 				break;
-			case "qualified":
-				qualified = subParts[1];
-				break;
-
 			default:
 				break;
 			}
