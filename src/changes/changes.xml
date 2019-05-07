@@ -9,15 +9,23 @@
 		<release version="0.9.16" date="2019-04.21"
 			description="introduce new keywords to verify form fields">
 			<action dev="kdoerges" type="add">
+				new keyword
+				verifyFieldActionChecksum: calculate the checksum of a field and
+				verify against expected sum
+			</action>
+			<action dev="kdoerges" type="add">
 				showFormFields will show
 				availability of action scripts for each field
 			</action>
 			<action dev="kdoerges" type="add">
-				new keyword verifyFieldScript: verify that a field has the expected additional action script attached
+				new keyword verifyFieldScript:
+				verify that a field has the expected additional action script
+				attached
 			</action>
 			<action dev="kdoerges" type="add">
-				new keyword storeFieldAction: extract the script and send it back to the calling system
-			</action>			
+				new keyword storeFieldAction:
+				extract the script and send it back to the calling system
+			</action>
 			<action dev="kdoerges" type="update">
 				update pdfbox 2.0.15
 			</action>
@@ -32,13 +40,14 @@
 			</action>
 			<action dev="nitfeu" type="add">
 				add junits
-			</action>						
+			</action>
 		</release>
 
 		<release version="0.9.14" date="2019-03.01"
 			description="refactoring and updating dependencies">
 			<action dev="kdoerges" type="fix">
-				refactor to document driver: PDFDriver
+				refactor to document driver:
+				PDFDriver
 			</action>
 			<action dev="kdoerges" type="fix">
 				fix status icon in tab
@@ -48,7 +57,7 @@
 			</action>
 			<action dev="kdoerges" type="update">
 				update vebtal-api
-			</action>			
+			</action>
 		</release>
 
 		<release version="0.9.13" date="2019-02.08"
