@@ -193,6 +193,36 @@ public class PDFDriver extends ExternalResource {
 		return null;
 	}
 
+	public String getActionByFieldName(String aName, String anAction) {
+		PDDocumentCatalog docCatalog = this.document.getDocumentCatalog();
+		PDAcroForm acroForm = docCatalog.getAcroForm();
+		List<PDField> fields = acroForm.getFields();
+		for (PDField field : fields) {
+			if (field.getPartialName().contentEquals(aName)) {
+				PDFormFieldAdditionalActions actions = field.getActions();
+				// there is no action attached
+				if (actions == null) {
+					return null;
+				}
+				
+				if ((actions.getV() != null) && anAction.contentEquals(PDFDriver.ACTION_VALIDATE)) {
+					return ((PDActionJavaScript)actions.getV()).getAction();
+				}
+				if ((actions.getC() != null) && anAction.contentEquals(PDFDriver.ACTION_CALCULATE)) {
+					return ((PDActionJavaScript)actions.getC()).getAction();
+				}
+				if ((actions.getF() != null) && anAction.contentEquals(PDFDriver.ACTION_FORMAT)) {
+					return ((PDActionJavaScript)actions.getF()).getAction();
+				}
+				if ((actions.getK() != null) && anAction.contentEquals(PDFDriver.ACTION_KEYSTROKE)) {
+					return ((PDActionJavaScript)actions.getK()).getAction();
+				}
+			}
+		}
+		return null;
+	}
+	
+	
 	/**
 	 * Returns true if a field has the expected additional action.
 	 * 
