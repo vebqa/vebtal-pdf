@@ -7,7 +7,7 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "typey", hintTarget = "name=<partial name>", hintValue = "<value>")
+@Keyword(module = PdfTestAdaptionPlugin.ID, command = "type", hintTarget = "name=<partial name>", hintValue = "<value>")
 public class Type extends AbstractCommand {
 	
 	public Type(String aCommand, String aTarget, String aValue) {

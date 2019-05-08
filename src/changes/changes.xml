@@ -6,8 +6,11 @@
 		<author email="kdoerges@googlemail.com">Karsten Doerges</author>
 	</properties>
 	<body>
-		<release version="0.9.16" date="2019-04.21"
-			description="introduce new keywords to verify form fields">
+		<release version="1.0.0" date="2019-05.08"
+			description="switch to 1.0.0">
+			<action dev="kdoerges" type="update">
+				switch to parent 1.0.0
+			</action>
 			<action dev="kdoerges" type="add">
 				new keyword
 				verifyFieldActionChecksum: calculate the checksum of a field and
