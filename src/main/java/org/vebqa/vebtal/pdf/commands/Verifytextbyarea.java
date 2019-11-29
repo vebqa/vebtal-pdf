@@ -59,6 +59,7 @@ public class Verifytextbyarea extends AbstractCommand {
 			try {
 				PDFTextStripperByArea textStripper = new PDFTextStripperByArea();
 				textStripper.setSortByPosition(true);
+				// area of interest will get the logical name "test"
 				textStripper.addRegion("test", area.getRectangle());
 
 				InputStream inputStream = new ByteArrayInputStream(
@@ -66,6 +67,7 @@ public class Verifytextbyarea extends AbstractCommand {
 				PDDocument pdf = PDDocument.load(inputStream);
 				PDPage page = pdf.getPage(area.getPage());
 				textStripper.extractRegions(page);
+				// get text from our area of interest
 				areaText = textStripper.getTextForRegion("test");
 				logger.info("Extracted text from area: {}", areaText);
 			} catch (IOException e) {
@@ -76,7 +78,7 @@ public class Verifytextbyarea extends AbstractCommand {
 
 			if (areaText == null) {
 				tResp.setCode(Response.FAILED);
-				tResp.setMessage("Could not find text in area. Area is empty!");
+				tResp.setMessage("Unable to find text in area. Area is empty!");
 			} else {
 				logger.info("Text found in area: {} ", areaText);
 				logger.info("Search for: {}", this.value);
@@ -88,7 +90,7 @@ public class Verifytextbyarea extends AbstractCommand {
 					tResp.setMessage("Text found in given area.");
 				} else {
 					tResp.setCode(Response.FAILED);
-					tResp.setMessage("Could not find text in area! Result is: " + areaText);
+					tResp.setMessage("Unable to find text in area! Result is: " + areaText);
 				}
 			}
 		}
