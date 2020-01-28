@@ -5,10 +5,10 @@
 	<parent>
 		<groupId>com.github.vebqa</groupId>
 		<artifactId>vebtal-parent</artifactId>
-		<version>1.0.3</version>
+		<version>1.0.3.1</version>
 	</parent>
 	<artifactId>vebtal-pdf</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.3.1</version>
 
 	<name>Test Adaption Layer for PDF documents</name>
 	<description>Provides access for testing PDF documents with api for REST or JUnit / AssertJ</description>
@@ -48,34 +48,34 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<modulename>vebtalpdf</modulename>
+		<modulename>opentalpdf</modulename>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.github.vebqa</groupId>
 			<artifactId>vebtal-api</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
-			<version>2.0.17</version>
+			<version>2.0.18</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox-tools</artifactId>
-			<version>2.0.17</version>
+			<version>2.0.18</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>preflight</artifactId>
-			<version>2.0.17</version>
+			<version>2.0.18</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.13</version>
+			<version>1.14</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
