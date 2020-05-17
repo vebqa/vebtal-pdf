@@ -6,6 +6,11 @@
 		<author email="kdoerges@googlemail.com">Karsten Doerges</author>
 	</properties>
 	<body>
+		<release version="1.0.5" date="2019-05.17">
+			<action dev="kdoerges" type="update">
+				switch to parent 1.0.5, update dependencies
+			</action>
+		</release>
 		<release version="1.0.3" date="2019-12.04">
 			<action dev="kdoerges" type="update">
 				switch to parent 1.0.3
