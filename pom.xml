@@ -51,6 +51,7 @@
 		<modulename>opentalpdf</modulename>
 	</properties>
 
+	<!-- dependencies -->
 	<dependencies>
 		<dependency>
 			<groupId>com.github.vebqa</groupId>
